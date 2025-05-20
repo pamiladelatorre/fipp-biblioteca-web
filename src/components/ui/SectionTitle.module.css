@@ -1,0 +1,12 @@
+.section_ct {
+    margin-bottom: 1rem;
+}
+
+.section_content {
+    display: flex;
+    align-items: center;
+}
+
+.section_title {
+    margin-bottom: 0;
+}

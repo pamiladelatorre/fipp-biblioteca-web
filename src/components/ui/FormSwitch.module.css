@@ -1,0 +1,19 @@
+.vstack {
+    justify-self: center;
+    width: 100%;
+    gap: 1px;
+}
+
+.form_label {
+    margin-bottom: unset;
+    text-align: center;
+    transform: translateY(-.01rem) scale(.75);
+}
+
+.form_check {
+    margin: 0 auto;
+}
+
+.form_check input {
+    transform: translateX(-.3rem);
+}

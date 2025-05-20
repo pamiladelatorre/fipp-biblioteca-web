@@ -1,0 +1,17 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0; /* largura da sidebar: left: 280px; */
+    width: 100vw; /* só cobre o conteúdo principal: width: calc(100vw - 280px); */
+    height: 100vh;
+    background-color: rgba(200, 200, 200, 0.85);
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    text-align: center;
+    margin-left: 140px; /* metade da largura da sidebar - desnecessario com a outra opção */
+}

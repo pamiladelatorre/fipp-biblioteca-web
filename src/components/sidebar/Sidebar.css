@@ -1,0 +1,22 @@
+.sidebar{
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 280px;
+}
+
+.sidebar .nav-link {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    margin-bottom: .5rem;    
+}
+  
+.sidebar .nav-link:hover {
+  font-size: 1.05rem; 
+  font-weight: 600;
+}
+
