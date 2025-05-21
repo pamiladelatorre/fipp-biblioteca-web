@@ -1,0 +1,88 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 250px;
+  min-height: 100vh;
+  padding-left: 1rem;
+}
+
+.sidebar h5 {
+  background: linear-gradient(135deg, #1d1f23, #2c2f36);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  padding: 1rem 0;
+  margin-left: -1rem;
+  margin-bottom: 2rem;
+  color: #fff;
+  text-align: center;
+}
+
+.sidebar :global(.accordion),
+.sidebar :global(.accordion-item),
+.sidebar :global(.accordion-button) {
+  background: transparent;
+  box-shadow: none !important;
+}
+
+.sidebar :global(.accordion-button) {
+  height: 50px;
+}
+
+.sidebar :global(.accordion-button)::after {
+  content: none; 
+}
+
+.sidebar :global(.accordion-button.collapsed:hover) {
+  background: linear-gradient(135deg, #212529, #343a40);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+  border-top-left-radius: 5rem !important;
+  border-bottom-left-radius: 5rem !important;
+}
+
+.sidebar :global(.accordion-button:not(.collapsed)){
+  background: #fafafa;
+  border-top-left-radius: 2rem !important;
+  color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.sidebar :global(.accordion-body) {
+  background: #fff;
+  border-bottom-left-radius: 2rem !important;
+}
+
+.sidebar :global(.nav-link) {
+  color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-bottom: .5rem;    
+}
+
+.sidebar :global(.menu-item){
+  color: #fff !important;
+  height: 50px;
+  padding: 15px 22px;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.sidebar :global(.menu-item:hover){
+  background: linear-gradient(135deg, #212529, #343a40);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-top-left-radius: 5rem !important;
+  border-bottom-left-radius: 5rem !important;
+  font-weight: 500 !important;
+}
+
+
+.sidebar :global(.nav-link:hover) {
+  font-weight: 600;
+}
+
+.sidebar :global(.nav-link.active).navLink.active {
+  background-color: #0d6efd;
+  color: white !important;
+}

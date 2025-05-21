@@ -1,7 +1,7 @@
 .overlay {
     position: fixed;
     top: 0;
-    left: 0; /* largura da sidebar: left: 280px; */
+    left: 0; /* largura da sidebar: left: 250px; */
     width: 100vw; /* só cobre o conteúdo principal: width: calc(100vw - 280px); */
     height: 100vh;
     background-color: rgba(200, 200, 200, 0.85);

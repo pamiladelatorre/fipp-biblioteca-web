@@ -23,7 +23,7 @@ export const buscarPorId = async (id) => {
 
 // Atualiza os dados de um motivo baixa existente
 export const atualizar = async (id, dados) => {
-    return await apiFetch(`/motivos-baixas/${id}`, {
+    return await apiFetch(`/motivos-baixa/${id}`, {
         method: 'PUT',
         body: JSON.stringify(dados)
     });

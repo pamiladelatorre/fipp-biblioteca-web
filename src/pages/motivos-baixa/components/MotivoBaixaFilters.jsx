@@ -4,7 +4,7 @@ function MotivoBaixaFilters({ filters, onFilterChange, onClearFilters }){
     return(
         <Accordion defaultActiveKey="0">
             <Accordion.Item eventKey="0">
-                <Accordion.Header>Categorias</Accordion.Header>
+                <Accordion.Header>Motivos de baixa</Accordion.Header>
                 <Accordion.Body>
                     <Container>
                         <Row className="justify-content-md-center align-items-center">

@@ -66,7 +66,7 @@ function AutoresPage(){
     const buscarAutores = (filters = {}) => {
         start();
         autorService.listar(filters).then((response) => {
-            setAutores(response.data || []);
+            setAutores(response?.data || []);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar autores'));
         }).finally(() => {

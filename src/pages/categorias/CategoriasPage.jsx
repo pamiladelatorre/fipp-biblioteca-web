@@ -66,8 +66,7 @@ function CategoriasPage(){
     const buscarCategorias = (filters = {}) => {
         start();
         categoriaService.listar(filters).then((response) => {
-            
-            setCategorias(response.data || []);
+            setCategorias(response?.data || []);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar categorias'));
         }).finally(() => {

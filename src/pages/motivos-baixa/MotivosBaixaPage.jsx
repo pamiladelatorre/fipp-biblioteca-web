@@ -66,8 +66,7 @@ function MotivosBaixaPage(){
     const buscarMotivosBaixa = (filters = {}) => {
         start();
         motivoBaixaService.listar(filters).then((response) => {
-            
-            setMotivosBaixa(response.data || []);
+            setMotivosBaixa(response?.data || []);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar motivos baixa'));
         }).finally(() => {

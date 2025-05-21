@@ -36,7 +36,7 @@ function AcervosPage(){
     
     // Preenche o formulário com os dados do banco ao clicar em editar
     const handleEdit = async (arcevoId) => {
-        navigate(`/cadastros/acervos/${arcevoId}`);
+        navigate(`/acervos/${arcevoId}`);
     };
 
     // Altera o status ativo da arcevo
@@ -66,7 +66,7 @@ function AcervosPage(){
     const buscarAcervos = (filters = {}) => {
         start();
         acervoService.listar(filters).then((response) => {
-            setAcervos(response.data || []);
+            setAcervos(response?.data || []);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar acervos'));
         }).finally(() => {
@@ -77,7 +77,7 @@ function AcervosPage(){
     return(
         <Stack>
             <div className="page-header-action">
-                <Button onClick={() => navigate('/cadastros/acervos/novo')}>
+                <Button onClick={() => navigate('/acervos/novo')}>
                     <i className="bi bi-plus-lg"></i> Novo
                 </Button>
             </div>

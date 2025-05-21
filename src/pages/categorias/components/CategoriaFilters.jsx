@@ -8,7 +8,7 @@ function CategoriaFilters({ filters, onFilterChange, onClearFilters }){
                 <Accordion.Body>
                     <Container>
                         <Row className="justify-content-md-center align-items-center">
-                            <Col md={5}>
+                            <Col md={4}>
                                 <FloatingLabel label="Descrição">
                                     <Form.Control 
                                         type='text' 

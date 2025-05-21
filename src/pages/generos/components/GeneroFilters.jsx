@@ -4,11 +4,11 @@ function GeneroFilters({ filters, onFilterChange, onClearFilters }){
     return(
         <Accordion defaultActiveKey="0">
             <Accordion.Item eventKey="0">
-                <Accordion.Header>Categorias</Accordion.Header>
+                <Accordion.Header>Gêneros</Accordion.Header>
                 <Accordion.Body>
                     <Container>
                         <Row className="justify-content-md-center align-items-center">
-                            <Col md={5}>
+                            <Col md={4}>
                                 <FloatingLabel label="Descrição">
                                     <Form.Control 
                                         type='text' 

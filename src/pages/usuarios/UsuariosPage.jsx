@@ -36,7 +36,7 @@ function UsuariosPage(){
     
     // Preenche o formulário com os dados do banco ao clicar em editar
     const handleEdit = async (usuarioId) => {
-        navigate(`/cadastros/usuarios/${usuarioId}`);
+        navigate(`/usuarios/${usuarioId}`);
     };
 
     // Altera o status ativo da usuário
@@ -66,8 +66,7 @@ function UsuariosPage(){
     const buscarUsuarios = (filters = {}) => {
         start();
         usuarioService.listar(filters).then((response) => {
-            
-            setUsuarios(response.data || []);
+            setUsuarios(response?.data || []);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar usuários'));
         }).finally(() => {
@@ -78,7 +77,7 @@ function UsuariosPage(){
     return(
         <Stack>
             <div className="page-header-action">
-                <Button onClick={() => navigate('/cadastros/usuarios/novo')}>
+                <Button onClick={() => navigate('/usuarios/novo')}>
                     <i className="bi bi-plus-lg"></i> Novo
                 </Button>
             </div>

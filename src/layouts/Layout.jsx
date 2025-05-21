@@ -10,7 +10,7 @@ const Layout = () => {
         {/* Barra Lateral */}
         <Sidebar />
         {/* Main Content */}
-        <div style={{ marginLeft: '280px', flex: 1 }}>
+        <div style={{ marginLeft: '250px', flex: 1 }}>
           {/* Header */}
           <Header />
           {/* Central Content Container */}

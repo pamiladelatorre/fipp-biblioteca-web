@@ -7,7 +7,6 @@ function MotivosBaixaTable({ motivosBaixa, loading, onEdit, onToggleAtivo }){
     const ativoTemplate = (rowData) => {
         return (
             <div className='d-inline-flex'>
-                {rowData.ativo ? 'Sim' : 'Não'}
                 <Form.Check 
                     type="switch" 
                     reverse

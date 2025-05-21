@@ -46,9 +46,8 @@ function CategoriaFormPage(){
         });
 
         try {
-            await apiPromise;
-            setCategoriaFormData(null); // esvazia dados da categoria atual
-            // buscarCategorias(); // atualiza a lista
+            const { data } = await apiPromise;
+            navigate(`/cadastros/categorias/${data.id}`);
         } catch (_) {
             // erro já tratado pelo toast.promise
         }
@@ -69,7 +68,7 @@ function CategoriaFormPage(){
                 <Button variant='secondary' type='button' onClick={() => navigate('/cadastros/categorias')}>
                     <i className="bi bi-arrow-left"></i> Voltar
                 </Button>
-                <Button variant='success' type='submit' onClick={handleSave}>
+                <Button variant='success' type='submit' form="categoria-form">
                     <i className="bi bi-check-lg"></i> Salvar
                 </Button>
             </div>

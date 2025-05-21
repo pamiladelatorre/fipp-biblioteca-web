@@ -1,8 +1,13 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button, Form } from "react-bootstrap";
+import { TipoUsuario } from '../../../enums/TipoUsuario';
 
 function UsuariosTable({ usuarios, loading, onEdit, onToggleBloqueado, onToggleAtivo }){
+    // Exibe o tipo de usuário
+    const TipoUsuarioTemplate = (rowData) => {
+        return TipoUsuario[rowData.tipoUsuario]
+    };
     // Exibe o status de bloqueado do usuário
     const bloqueadoTemplate = (rowData) => {
         return (
@@ -67,7 +72,7 @@ function UsuariosTable({ usuarios, loading, onEdit, onToggleBloqueado, onToggleA
             <Column field="nome" header="Nome" sortable></Column>
             <Column field="telefone" header="Telefone"></Column>
             <Column field="email" header="E-mail"></Column>
-            <Column field="tipoUsuario" header="Tipo"></Column>
+            <Column field="tipoUsuario" header="Tipo" body={TipoUsuarioTemplate}></Column>
             <Column field="bloqueado" header="Bloqueado" body={bloqueadoTemplate}></Column>
             <Column field="ativo" header="Ativo" body={ativoTemplate}></Column>
             <Column header="Ações" body={actionTemplate} style={{ width: '5rem' }}></Column>

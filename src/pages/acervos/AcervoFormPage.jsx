@@ -66,7 +66,7 @@ function AcervoFormPage(){
             </Card>
 
             <div className="page-action">
-                <Button variant='secondary' type='button' onClick={() => navigate('/cadastros/acervos')}>
+                <Button variant='secondary' type='button' onClick={() => navigate('/acervos')}>
                     <i className="bi bi-arrow-left"></i> Voltar
                 </Button>
                 <Button variant='success' type='submit' onClick={handleSave}>

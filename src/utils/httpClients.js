@@ -26,11 +26,15 @@ export const apiFetch = async (endpoint, options = {}) => {
     let errorData;
     try {
       errorData = await response.json();
+      const method = (options.method || 'GET').toUpperCase();
+      if (method === 'GET' && errorData.status === 404) {
+        return;
+      }
     } catch {
       errorData = { message: 'Erro genérico' };
     }
 
-    console.error(`Erro na requisição pública: ${response.status}`)
+    console.error(`Erro na requisição: ${response.status}`)
     throw {
       status: response.status,
       message: errorData.message || 'Erro ao processar requisição',

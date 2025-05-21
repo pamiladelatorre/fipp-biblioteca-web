@@ -1,56 +1,85 @@
-import { useState } from 'react';
-import { Navbar, Container, Nav, Collapse  } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import './Sidebar.css'
+import { Accordion, Nav } from 'react-bootstrap';
+import { NavLink, Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
+import styles from './Sidebar.module.css'; 
 
-function Sidebar() {
-  const [openCadastros, setOpenCadastros] = useState(false);
-  const [openEmprestimos, setOpenEmprestimos] = useState(false);
+export default function Sidebar() {
+  const { user } = useAuth(); // Ex: user.tipo_usuario === 'administrador'
+
+  // Função para verificar permissão
+  const canAccess = (roles) => roles.includes(user?.tipoUsuario || 'administrador');
 
   return (
-    <Navbar bg="dark" className="sidebar p-3">
-      <Container className="d-flex flex-column h-100">
-        <Link to="/" className="text-white text-decoration-none align-self-start">
-          <span className="fs-4"><i className="bi bi-list"></i></span>
-        </Link>
-        <Nav defaultActiveKey="/" className="flex-column mt-4 mb-auto">
-          {/* Cadastros */}
-          <Nav.Item>
-            <Nav.Link onClick={() => setOpenCadastros(!openCadastros)}><i className="bi bi-folder me-2"></i>Cadastros</Nav.Link>
-            <Collapse in={openCadastros}>
-              <div>
-                <Nav className="flex-column ms-3">
-                  <Nav.Link as={Link} to="/cadastros/acervos"><i className="bi bi-book me-2"></i>Acervos</Nav.Link>
-                  <Nav.Link as={Link} to="/cadastros/assinaturas"><i className="bi bi-clipboard-check me-2"></i> Assinaturas</Nav.Link>
-                  <Nav.Link as={Link} to="/cadastros/autores"><i className="bi bi-person-lines-fill me-2"></i>Autores</Nav.Link>
-                  <Nav.Link as={Link} to="/cadastros/categorias"><i className="bi bi-tags me-2"></i>Categorias</Nav.Link>
-                  <Nav.Link as={Link} to="/cadastros/doadores"><i className="bi bi-person-heart me-2"></i>Doadores</Nav.Link>
-                  <Nav.Link as={Link} to="/cadastros/fornecedores"><i className="bi bi-truck me-2"></i>Fornecedores</Nav.Link>
-                  <Nav.Link as={Link} to="/cadastros/generos"><i className="bi bi-tags me-2"></i>Gêneros</Nav.Link>
-                  <Nav.Link as={Link} to="/cadastros/motivos-baixa"><i className="bi bi-file-earmark-x me-2"></i>Motivos de Baixa</Nav.Link>
-                  <Nav.Link as={Link} to="/cadastros/usuarios"><i className="bi bi-person me-2"></i>Usuários</Nav.Link>
-                </Nav>
-              </div>
-            </Collapse>
-          </Nav.Item>
+    <div className={`${styles.sidebar} bg-dark border-end`}>
+      <h5>Controll Books</h5>
+      {/* Link para Home */}
+      <Nav className="flex-column">
+        <Nav.Link as={Link} to="/" className='menu-item'><i className="bi bi-house-door me-2"></i>Início</Nav.Link>
+      </Nav>
 
-          {/* Empréstimos */}
-          <Nav.Item>
-            <Nav.Link onClick={() => setOpenEmprestimos(!openEmprestimos)}><i className="bi bi-arrow-left-right me-2"></i>Empréstimos</Nav.Link>
-            <Collapse in={openEmprestimos}>
-              <div>
-                <Nav className="flex-column ms-3">
-                  <Nav.Link as={Link} to="/emprestimos/reservar"><i className="bi bi-bookmark-plus me-2"></i>Reservar Exemplar</Nav.Link>
-                  <Nav.Link as={Link} to="/emprestimos/registrar"><i className="bi bi-arrow-left-right me-2"></i>Registrar Empréstimo</Nav.Link>
-                  <Nav.Link as={Link} to="/emprestimos/devolucao"><i className="bi bi-arrow-90deg-left me-2"></i>Registrar Devolução</Nav.Link>
-                </Nav>
-              </div>
-            </Collapse>
-          </Nav.Item>
-        </Nav>
-      </Container>
-    </Navbar>
+      <Accordion alwaysOpen flush>
+        {/* Cadastros */}
+        {canAccess(['administrador']) && (
+          <Accordion.Item eventKey="0">
+            <Accordion.Header><i className="bi bi-folder-plus me-2"></i>Cadastros</Accordion.Header>
+            <Accordion.Body>
+              <Nav className="flex-column">
+                <Nav.Link as={Link} to="/cadastros/fornecedores"><i className="bi bi-buildings me-2"></i>Fornecedores</Nav.Link>
+                <Nav.Link as={Link} to="/cadastros/doadores"><i className="bi bi-hand-thumbs-up me-2"></i>Doadores</Nav.Link>
+                <Nav.Link as={Link} to="/cadastros/assinaturas"><i className="bi bi-newspaper me-2"></i> Assinaturas</Nav.Link>
+                <Nav.Link as={Link} to="/cadastros/categorias"><i className="bi bi-tags me-2"></i>Categorias</Nav.Link>
+                <Nav.Link as={Link} to="/cadastros/generos"><i className="bi bi-bookmark me-2"></i>Gêneros</Nav.Link>
+                <Nav.Link as={Link} to="/cadastros/autores"><i className="bi bi-person-vcard me-2"></i>Autores</Nav.Link>
+                <Nav.Link as={Link} to="/cadastros/motivos-baixa"><i className="bi bi-exclamation-circle me-2"></i>Motivos de Baixa</Nav.Link>                
+              </Nav>
+            </Accordion.Body>
+          </Accordion.Item>
+        )}
+
+        {/* Gestão de Acervo */}
+        <Accordion.Item eventKey="1">
+          <Accordion.Header><i className="bi bi-archive me-2"></i>Gestão de Acervos</Accordion.Header>
+          <Accordion.Body>
+            <Nav className="flex-column">
+                <Nav.Link as={Link} to="/acervos"><i className="bi bi-journal-bookmark me-2"></i>Acervos</Nav.Link>
+                <Nav.Link as={Link} to="/acervos/entradas"><i className="bi bi-box-arrow-in-down me-2"></i>Entradas</Nav.Link>
+                <Nav.Link as={Link} to="/acervos/exemplares"><i className="bi bi-collection me-2"></i>Exemplares</Nav.Link>
+            </Nav>
+          </Accordion.Body>
+        </Accordion.Item>
+
+        {/* Movimentações */}
+        <Accordion.Item eventKey="2">
+          <Accordion.Header><i className="bi bi-arrow-left-right me-2"></i>Movimentações</Accordion.Header>
+          <Accordion.Body>
+            <Nav className="flex-column">
+              <Nav.Link as={Link} to="/movimentacoes/emprestimos"><i className="bi bi-arrow-left-right me-2"></i>Empréstimos</Nav.Link>
+              <Nav.Link as={Link} to="/movimentacoes/renovacoes"><i className="bi bi-arrow-clockwise me-2"></i>Renovações</Nav.Link>
+              <Nav.Link as={Link} to="/movimentacoes/reservas"><i className="bi bi-bookmark-check me-2"></i>Reservas</Nav.Link>              
+              <Nav.Link as={Link} to="/movimentacoes/devolucoes"><i className="bi bi-check2-circle me-2"></i>Devoluções</Nav.Link>
+              <Nav.Link as={Link} to="/movimentacoes/baixas"><i className="bi bi-trash3 me-2"></i>Baixas</Nav.Link>
+            </Nav>
+          </Accordion.Body>
+        </Accordion.Item>
+
+        {/* Usuários */}
+        {canAccess(['administrador']) && (
+          <Accordion.Item eventKey="3">
+            <Accordion.Header><i className="bi bi-people me-2"></i>Gestão de Usuários</Accordion.Header>
+            <Accordion.Body>
+              <Nav className="flex-column">
+                <Nav.Link as={Link} to="/usuarios"><i className="bi bi-person me-2"></i>Usuários</Nav.Link>
+                <Nav.Link as={Link} to="/usuarios/infracoes"><i className="bi bi-exclamation-triangle me-2"></i>Infrações</Nav.Link>
+              </Nav>
+            </Accordion.Body>
+          </Accordion.Item>
+        )}
+      </Accordion>
+
+      {/* Link para Home */}
+      <Nav className="flex-column">
+        <Nav.Link as={Link} to="/compras" className='menu-item'><i className="bi bi-cart4 me-2"></i>Compras</Nav.Link>
+      </Nav>
+    </div>
   );
 }
-
-export default Sidebar;

@@ -66,7 +66,7 @@ function UsuarioFormPage(){
             </Card>
 
             <div className="page-action">
-                <Button variant='secondary' type='button' onClick={() => navigate('/cadastros/usuarios')}>
+                <Button variant='secondary' type='button' onClick={() => navigate('/usuarios')}>
                     <i className="bi bi-arrow-left"></i> Voltar
                 </Button>
                 <Button variant='success' type='submit' onClick={handleSave}>

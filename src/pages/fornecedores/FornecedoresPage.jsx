@@ -66,8 +66,7 @@ function FornecedoresPage(){
     const buscarFornecedores = (filters = {}) => {
         start();
         fornecedorService.listar(filters).then((response) => {
-            console.log(response.data)
-            setFornecedores(response.data || []);
+            setFornecedores(response?.data || []);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar fornecedores'));
         }).finally(() => {

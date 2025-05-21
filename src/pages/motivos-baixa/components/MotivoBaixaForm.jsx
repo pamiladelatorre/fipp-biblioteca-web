@@ -32,7 +32,7 @@ function MotivoBaixaForm({ motivoBaixa, onSave }) {
     };
 
     return(
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form id="motivo-baixa-form" onSubmit={handleSubmit(onSubmit)}>
             <SectionTitle icon="bi-info-circle" title="Informações Básicas" />
             <Row>
                 <Col md={6}>
@@ -42,12 +42,10 @@ function MotivoBaixaForm({ motivoBaixa, onSave }) {
                         <Form.Control.Feedback type="invalid">{errors.descricao?.message}</Form.Control.Feedback>
                     </FloatingLabel>
                 </Col>
-            </Row> 
-            <Row>
-                <Col md={2}>
+                <Col md={1}>
                     <FormSwitch name="ativo" control={control} label="Ativo" />
-                </Col>
-            </Row>
+                </Col>                
+            </Row> 
         </Form>
     );
 };

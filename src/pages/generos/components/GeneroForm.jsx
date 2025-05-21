@@ -32,7 +32,7 @@ function GeneroForm({ genero, onSave }) {
     };
 
     return(
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form id="genero-form" onSubmit={handleSubmit(onSubmit)}>
             <SectionTitle icon="bi-info-circle" title="Informações Básicas" />
             <Row>
                 <Col md={6}>
@@ -42,12 +42,10 @@ function GeneroForm({ genero, onSave }) {
                         <Form.Control.Feedback type="invalid">{errors.descricao?.message}</Form.Control.Feedback>
                     </FloatingLabel>
                 </Col>
-            </Row> 
-            <Row>
-                <Col md={2}>
+                <Col md={1}>
                     <FormSwitch name="ativo" control={control} label="Ativo" />
                 </Col>
-            </Row>
+            </Row> 
         </Form>
     );
 };

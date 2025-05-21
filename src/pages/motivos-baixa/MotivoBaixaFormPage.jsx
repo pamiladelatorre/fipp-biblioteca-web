@@ -46,9 +46,8 @@ function MotivoBaixaFormPage(){
         });
 
         try {
-            await apiPromise;
-            setMotivoBaixaFormData(null); // esvazia dados da categoria atual
-            // buscarCategorias(); // atualiza a lista
+            const { data } = await apiPromise;
+            navigate(`/cadastros/motivos-baixa/${data.id}`);
         } catch (_) {
             // erro já tratado pelo toast.promise
         }
@@ -69,7 +68,7 @@ function MotivoBaixaFormPage(){
                 <Button variant='secondary' type='button' onClick={() => navigate('/cadastros/motivos-baixa')}>
                     <i className="bi bi-arrow-left"></i> Voltar
                 </Button>
-                <Button variant='success' type='submit' onClick={handleSave}>
+                <Button variant='success' type='submit' form="motivo-baixa-form">
                     <i className="bi bi-check-lg"></i> Salvar
                 </Button>
             </div>

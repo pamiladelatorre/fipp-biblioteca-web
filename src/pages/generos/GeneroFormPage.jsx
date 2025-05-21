@@ -46,9 +46,8 @@ function GeneroFormPage(){
         });
 
         try {
-            await apiPromise;
-            setGeneroFormData(null); // esvazia dados da categoria atual
-            // buscarCategorias(); // atualiza a lista
+            const { data } = await apiPromise;
+            navigate(`/cadastros/generos/${data.id}`);
         } catch (_) {
             // erro já tratado pelo toast.promise
         }
@@ -69,7 +68,7 @@ function GeneroFormPage(){
                 <Button variant='secondary' type='button' onClick={() => navigate('/cadastros/generos')}>
                     <i className="bi bi-arrow-left"></i> Voltar
                 </Button>
-                <Button variant='success' type='submit' onClick={handleSave}>
+                <Button variant='success' type='submit' form="genero-form">
                     <i className="bi bi-check-lg"></i> Salvar
                 </Button>
             </div>

@@ -32,7 +32,7 @@ function CategoriaForm({ categoria, onSave }) {
     };
 
     return(
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form id="categoria-form" onSubmit={handleSubmit(onSubmit)}>
             <SectionTitle icon="bi-info-circle" title="Informações Básicas" />
             <Row>
                 <Col md={6}>

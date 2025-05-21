@@ -66,8 +66,7 @@ function GenerosPage(){
     const buscarGeneros = (filters = {}) => {
         start();
         generoService.listar(filters).then((response) => {
-            
-            setGeneros(response.data || []);
+            setGeneros(response?.data || []);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar generos'));
         }).finally(() => {
