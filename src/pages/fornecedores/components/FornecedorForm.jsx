@@ -99,7 +99,7 @@ function FornecedorForm({ fornecedor, onSave }) {
     const handleRemoverMetodo = (data) => {
         setMetodosPagamento(prev => {
             const novaLista = prev.map(item =>
-                item === data ? { ...item, excluido: true } : item
+                item.tipoPagamento === data.tipoPagamento ? { ...item, excluido: true } : item
             );
 
             // Atualiza o form junto com o estado local
