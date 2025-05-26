@@ -36,7 +36,6 @@ function AutoresTable({ autores, loading, onEdit, onToggleAtivo }){
             value={autores} 
             dataKey="id" 
             size='small'
-            stripedRows
             loading={loading}
             emptyMessage="Nenhuma autor encontrado." 
             paginator 

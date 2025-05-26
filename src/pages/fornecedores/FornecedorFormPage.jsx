@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Card, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import LoadingSpinner from '../../components/loading-spinner/LoadingSpinner.jsx';
+import { useLoading } from '../../hooks/useLoading.js';
 
 import { getErrorMessage } from '../../utils/handleApiError.js';
 import FornecedorForm from './components/FornecedorForm';
@@ -11,20 +13,25 @@ function FornecedorFormPage(){
     const { id } = useParams();
     const isEditMode = Boolean(id);
     const [fornecedorFormData, setFornecedorFormData] = useState(null);
+    const { loading, start, stop } = useLoading();
+    const [reload, setReload] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         if (isEditMode && id) {
             buscarFornecedor();
         }
-    }, [id]);
+    }, [id, reload]);
 
     const buscarFornecedor = async () => {
         try {
+            start();
             const { data:dados } = await fornecedorService.buscarPorId(id);
             setFornecedorFormData(dados);
         } catch (error) {
             toast.error(getErrorMessage(error, 'Erro ao carregar fornecedor para edição'));
+        }finally{
+            stop();
         }
     };
 
@@ -46,13 +53,18 @@ function FornecedorFormPage(){
         });
 
         try {
-            await apiPromise;
-            setFornecedorFormData(null); // esvazia dados da categoria atual
-            // buscarCategorias(); // atualiza a lista
+            const { data } = await apiPromise;
+            if (isEditMode) {
+                setReload(prev => !prev); // força o useEffect a recarregar os dados
+            } else {
+                navigate(`/cadastros/fornecedores/${data.id}`); // para novo cadastro
+            }
         } catch (_) {
             // erro já tratado pelo toast.promise
         }
     };
+
+    if (loading) return <LoadingSpinner message="Carregando o fornecedor..." />;
 
     return(
         <Container>
@@ -69,7 +81,7 @@ function FornecedorFormPage(){
                 <Button variant='secondary' type='button' onClick={() => navigate('/cadastros/fornecedores')}>
                     <i className="bi bi-arrow-left"></i> Voltar
                 </Button>
-                <Button variant='success' type='submit' onClick={handleSave}>
+                <Button variant='success' type='submit' form="fornecedor-form">
                     <i className="bi bi-check-lg"></i> Salvar
                 </Button>
             </div>

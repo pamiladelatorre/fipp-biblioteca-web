@@ -36,7 +36,6 @@ function GenerosTable({ generos, loading, onEdit, onToggleAtivo }){
             value={generos} 
             dataKey="id" 
             size='small'
-            stripedRows
             loading={loading}
             emptyMessage="Nenhum genero encontrado." 
             paginator 

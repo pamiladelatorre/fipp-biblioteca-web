@@ -36,7 +36,6 @@ function MotivosBaixaTable({ motivosBaixa, loading, onEdit, onToggleAtivo }){
             value={motivosBaixa} 
             dataKey="id" 
             size='small'
-            stripedRows
             loading={loading}
             emptyMessage="Nenhum motivo baixa encontrado." 
             paginator 

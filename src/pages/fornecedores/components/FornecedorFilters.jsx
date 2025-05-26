@@ -8,14 +8,58 @@ function FornecedorFilters({ filters, onFilterChange, onClearFilters }){
                 <Accordion.Body>
                     <Container>
                         <Row className="justify-content-md-center align-items-center">
-                            <Col md={5}>
+                            <Col md={3} className="mb-2">
+                                <FloatingLabel label="CNPJ">
+                                    <Form.Control 
+                                        type='text' 
+                                        value={filters.cnpj}
+                                        onChange={(e) => onFilterChange({ ...filters, cnpj: e.target.value })}
+                                        className='form-control-filter' 
+                                        placeholder="Buscar por cnpj..." 
+                                    />                            
+                                </FloatingLabel>
+                            </Col>
+                            <Col md={4} className="mb-2">
                                 <FloatingLabel label="Razão social">
                                     <Form.Control 
                                         type='text' 
                                         value={filters.razaoSocial}
                                         onChange={(e) => onFilterChange({ ...filters, razaoSocial: e.target.value })}
                                         className='form-control-filter' 
-                                        placeholder="Buscar por descrição..." 
+                                        placeholder="Buscar por Razão social..." 
+                                    />                            
+                                </FloatingLabel>
+                            </Col>
+                            <Col md={4} className="mb-2">
+                                <FloatingLabel label="Representante">
+                                    <Form.Control 
+                                        type='text' 
+                                        value={filters.representante}
+                                        onChange={(e) => onFilterChange({ ...filters, representante: e.target.value })}
+                                        className='form-control-filter' 
+                                        placeholder="Buscar por representante..." 
+                                    />                            
+                                </FloatingLabel>
+                            </Col>
+                            <Col md={3}>
+                                <FloatingLabel label="Telefone">
+                                    <Form.Control 
+                                        type='text' 
+                                        value={filters.telefone}
+                                        onChange={(e) => onFilterChange({ ...filters, telefone: e.target.value })}
+                                        className='form-control-filter' 
+                                        placeholder="Buscar por telefone..." 
+                                    />                            
+                                </FloatingLabel>
+                            </Col>
+                            <Col md={3}>
+                                <FloatingLabel label="E-mail">
+                                    <Form.Control 
+                                        type='text' 
+                                        value={filters.email}
+                                        onChange={(e) => onFilterChange({ ...filters, email: e.target.value })}
+                                        className='form-control-filter' 
+                                        placeholder="Buscar por email..." 
                                     />                            
                                 </FloatingLabel>
                             </Col>

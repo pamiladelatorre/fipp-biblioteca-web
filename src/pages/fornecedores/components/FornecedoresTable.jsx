@@ -36,7 +36,6 @@ function FornecedoresTable({ fornecedores, loading, onEdit, onToggleAtivo }){
             value={fornecedores} 
             dataKey="id" 
             size='small'
-            stripedRows
             loading={loading}
             emptyMessage="Nenhum fornecedor encontrado." 
             paginator 

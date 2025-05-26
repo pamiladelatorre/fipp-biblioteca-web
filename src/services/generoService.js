@@ -17,6 +17,11 @@ export const listar = async (filters = {}) => {
 };
 
 // Busca um genero pelo ID
+export const buscarAtivos = async () => {
+    return await apiFetch('/generos/ativos');
+};
+
+// Busca um genero pelo ID
 export const buscarPorId = async (id) => {
     return await apiFetch(`/generos/${id}`);
 };

@@ -1,22 +1,28 @@
 import { useEffect, useState  } from 'react';
-import { Form, Row, Col, FloatingLabel, Accordion, ToggleButtonGroup, ToggleButton  } from "react-bootstrap";
+import { Form, Row, Col, FloatingLabel, Accordion } from "react-bootstrap";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { fornecedorSchema } from '../../../validations/fornecedorValidation';
+import { toast } from 'react-toastify';
 
+import { fornecedorSchema } from '../../../validations/fornecedorValidation';
 import SectionTitle from '../../../components/ui/SectionTitle';
 import FormSwitch from '../../../components/ui/FormSwitch';
+import ToggleButtonGroupField from '../../../components/ui/ToggleButtonGroupField';
+import MetodoPagamentoForm from './MetodoPagamentoForm.jsx';
+import MetodosPagamentoTable from './MetodosPagamentoTable.jsx';
+import * as generoService from '../../../services/generoService.js'
 
 function FornecedorForm({ fornecedor, onSave }) {
-    const [value, setValue] = useState([1, 3]);
-    const handleChange = (val) => setValue(val);
     // Define os campos do formulário e aplica a validação com YUP
-    const { register, handleSubmit, formState: { errors }, reset, control } = useForm({ 
+    const { 
+        register, handleSubmit, formState: { errors }, reset, control, setValue
+    } = useForm({ 
         resolver: yupResolver(fornecedorSchema),
         defaultValues: {
             id: null,
             cnpj: '',
             razaoSocial: '',
+            inscricaoEstadual: '',
             representante: '',
             telefone: '',
             email: '',
@@ -26,129 +32,175 @@ function FornecedorForm({ fornecedor, onSave }) {
             ativo: true
         }
     });
+    const [generos, setGeneros] = useState([]);
+    const [metodosPagamento, setMetodosPagamento] = useState([]);
 
-    // Atualiza o formulário sempre que a fornecedor mudar (modo edição)
     useEffect(() => {
+        buscarGenerosAtivos();
+    
+        const metodos = fornecedor?.metodosPagamento?.map(m => ({ ...m, excluido: false })) ?? [];
+    
         reset({
-            id: fornecedor?.id || null,
-            cnpj: fornecedor?.cnpj || '',
-            razaoSocial: fornecedor?.razaoSocial || '',
-            representante: fornecedor?.representante || '',
-            telefone: fornecedor?.telefone || '',
-            email: fornecedor?.email || '',
-            endereco: fornecedor?.endereco || '',
-            metodosPagamento: fornecedor?.metodosPagamento || [],
-            generos: fornecedor?.generos || [],
+            id: fornecedor?.id ?? null,
+            cnpj: fornecedor?.cnpj ?? '',
+            razaoSocial: fornecedor?.razaoSocial ?? '',
+            inscricaoEstadual: fornecedor?.inscricaoEstadual ?? '',
+            representante: fornecedor?.representante ?? '',
+            telefone: fornecedor?.telefone ?? '',
+            email: fornecedor?.email ?? '',
+            endereco: fornecedor?.endereco ?? '',
+            generos: fornecedor?.generos ?? [],
             ativo: fornecedor?.ativo ?? true,
+            metodosPagamento: metodos,
         });
-    }, [fornecedor, reset]);
+    
+        setMetodosPagamento(metodos);
+        setValue('metodosPagamento', metodos);
+    
+    }, [fornecedor, reset, setValue]);
 
+    // Carrega a lista de generos ativos
+    const buscarGenerosAtivos = () => {
+        generoService.buscarAtivos().then((response) => {
+            setGeneros(response?.data || []);
+        }).catch((error) => {
+            toast.error(getErrorMessage(error, 'Erro ao buscar generos'));
+        });
+    };
+
+    const handleAdicionarMetodo = (data) => {
+        setMetodosPagamento(prev => {
+            const lista = prev ?? []; 
+            const metodoExistente = lista.find(m => m.tipoPagamento === data.tipoPagamento);
+      
+            if (metodoExistente && !metodoExistente.excluido) {
+                toast.warning('Esse tipo de pagamento já foi adicionado');
+                return lista; // mantém a lista atual
+            }
+      
+            let novaLista;
+      
+            if (metodoExistente && metodoExistente.excluido) {
+                // Reutiliza o ID e "reativa" o método
+                const atualizado = { ...data, id: metodoExistente.id, excluido: false };
+      
+                novaLista = lista.map(m => m.tipoPagamento === data.tipoPagamento ? atualizado : m);
+            } else {
+                // Novo método
+                novaLista = [...lista, { ...data, excluido: false }];
+            }
+      
+            // Atualiza o form junto com o estado local
+            setValue('metodosPagamento', novaLista);
+            return novaLista;
+        });
+    };
+
+    const handleRemoverMetodo = (data) => {
+        setMetodosPagamento(prev => {
+            const novaLista = prev.map(item =>
+                item === data ? { ...item, excluido: true } : item
+            );
+
+            // Atualiza o form junto com o estado local
+            setValue('metodosPagamento', novaLista);
+            return novaLista;
+        });
+    };
+      
     const onSubmit = (data) => {
-        onSave(data);
+        // Filtra métodos excluídos antes de enviar
+        const metodosAtivos = data.metodosPagamento.filter(m => !m.excluido);
+        onSave({ ...data, metodosPagamento: metodosAtivos });
     };
 
     return(
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form id="fornecedor-form" onSubmit={handleSubmit(onSubmit)}>
             <SectionTitle icon="bi-info-circle" title="Informações Básicas" />
             <Row>
                 <Col md={3}>
                     <FloatingLabel label="CNPJ*">
-                        <Form.Control type='text' placeholder="Digite o cnpj do fornecedor" 
-                            {...register('cnpj')} isInvalid={!!errors.cnpj} />
+                        <Form.Control type='text' {...register('cnpj')} isInvalid={!!errors.cnpj} />
                         <Form.Control.Feedback type="invalid">{errors.cnpj?.message}</Form.Control.Feedback>
                     </FloatingLabel>
                 </Col>
-                <Col md={1}>
-                    <FormSwitch name="ativo" control={control} label="Ativo" />
-                </Col>
-            </Row> 
-            <Row>
                 <Col md={4}>
                     <FloatingLabel label="Razão Social*">
-                        <Form.Control type='text' placeholder="Digite a razão social do fornecedor" 
-                            {...register('razaoSocial')} isInvalid={!!errors.razaoSocial} />
+                        <Form.Control type='text' {...register('razaoSocial')} isInvalid={!!errors.razaoSocial} />
                         <Form.Control.Feedback type="invalid">{errors.razaoSocial?.message}</Form.Control.Feedback>
                     </FloatingLabel>
-                </Col>
+                </Col>                
             </Row> 
             <Row>
+                <Col md={3}>
+                    <FloatingLabel label="Inscrição Estadual">
+                        <Form.Control type='text' {...register('inscricaoEstadual')} isInvalid={!!errors.inscricaoEstadual} />
+                        <Form.Control.Feedback type="invalid">{errors.inscricaoEstadual?.message}</Form.Control.Feedback>
+                    </FloatingLabel>
+                </Col>
                 <Col md={4}>
-                    <FloatingLabel label="Representante*">
-                        <Form.Control type='text' placeholder="Digite o representante do fornecedor" 
-                            {...register('representante')} isInvalid={!!errors.representante} />
+                    <FloatingLabel label="Representante">
+                        <Form.Control type='text' {...register('representante')} isInvalid={!!errors.representante} />
                         <Form.Control.Feedback type="invalid">{errors.representante?.message}</Form.Control.Feedback>
                     </FloatingLabel>
                 </Col>             
+            </Row>
+            <Row>
+                <Col md={1}>
+                    <FormSwitch name="ativo" control={control} label="Ativo" />
+                </Col>
             </Row>
             <SectionTitle icon="bi-briefcase" title="Contatos" />
             <Row>
                 <Col md={3}>
                     <FloatingLabel label="Telefone*">
-                        <Form.Control type='text' placeholder="Digite a telefone do fornecedor" 
-                            {...register('telefone')} isInvalid={!!errors.telefone} />
+                        <Form.Control type='text'{...register('telefone')} isInvalid={!!errors.telefone} />
                         <Form.Control.Feedback type="invalid">{errors.telefone?.message}</Form.Control.Feedback>
                     </FloatingLabel>
                 </Col>
                 <Col md={3}>
                     <FloatingLabel label="E-mail*">
-                        <Form.Control type='text' placeholder="Digite o email do fornecedor" 
-                            {...register('email')} isInvalid={!!errors.email} />
+                        <Form.Control type='text' {...register('email')} isInvalid={!!errors.email} />
                         <Form.Control.Feedback type="invalid">{errors.email?.message}</Form.Control.Feedback>
                     </FloatingLabel>
                 </Col>  
             </Row>
             <Row>
                 <Col md={6}>
-                    <FloatingLabel label="Endereço*">
-                        <Form.Control type='text' placeholder="Digite o endereco do fornecedor" 
-                            {...register('endereco')} isInvalid={!!errors.endereco} />
+                    <FloatingLabel label="Endereço">
+                        <Form.Control type='text' {...register('endereco')} isInvalid={!!errors.endereco} />
                         <Form.Control.Feedback type="invalid">{errors.endereco?.message}</Form.Control.Feedback>
                     </FloatingLabel>
                 </Col>              
             </Row>
             <Accordion className='mt-3'>
                 <Accordion.Item eventKey="0">
-                    <Accordion.Header><SectionTitle icon="bi-bookshelf" title="Gêneros" /></Accordion.Header>
+                    <Accordion.Header><SectionTitle icon="bi-tags" title="Gêneros" /></Accordion.Header>
                     <Accordion.Body>
-                        <ToggleButtonGroup type="checkbox" value={value} onChange={handleChange}>
-                            <ToggleButton id="tbg-btn-1" value={1}>
-                                Option 1
-                            </ToggleButton>
-                            <ToggleButton id="tbg-btn-2" value={2}>
-                                Option 2
-                            </ToggleButton>
-                            <ToggleButton id="tbg-btn-3" value={3}>
-                                Option 3
-                            </ToggleButton>
-                        </ToggleButtonGroup> 
+                        <ToggleButtonGroupField
+                            name="generos"
+                            control={control}
+                            options={generos.map((g) => ({ id: g.id, label: g.descricao }))}
+                            className='btn-group-pill'
+                        />
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
-                    <Accordion.Header><SectionTitle icon="bi-credit-card" title="Meios de Pagamento" /></Accordion.Header>
+                    <Accordion.Header>
+                        <SectionTitle icon="bi-credit-card" title="Meios de Pagamento" />
+                        {errors.metodosPagamento && (
+                            <div className="text-danger small mx-3">{errors.metodosPagamento.message}</div>
+                        )}
+                    </Accordion.Header>
                     <Accordion.Body>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                        culpa qui officia deserunt mollit anim id est laborum.
-                    </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="2">
-                    <Accordion.Header><SectionTitle icon="bi-wallet2" title="Teste" /></Accordion.Header>
-                    <Accordion.Body>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                        culpa qui officia deserunt mollit anim id est laborum.
+                        <MetodoPagamentoForm onChange={handleAdicionarMetodo} />
+                        <MetodosPagamentoTable 
+                            metodosPagamento={metodosPagamento?.filter(m => !m.excluido)} 
+                            onRemove={handleRemoverMetodo} 
+                        />
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-            
         </Form>
     );
 };

@@ -1,0 +1,95 @@
+/* Card Form */
+.card-form {
+    margin-top: 64px;
+}
+
+.card-form .form-check,
+.card-form .form-floating {
+    margin-bottom: .75rem;
+}
+
+.card-form .accordion {
+    box-shadow: none !important;
+}
+
+.card-form .accordion-item {
+  transition: margin 0.3s ease;
+}
+
+.card-form .accordion-item:has(.accordion-collapse.show) {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-form .accordion-item:first-child:has(.accordion-collapse.show) {
+  margin-top: 0;
+}
+
+.card-form .accordion-item:last-child:has(.accordion-collapse.show) {
+  margin-bottom: 0;
+}
+
+.card-form .accordion-item:last-child .accordion-button {
+    border-bottom-left-radius: var(--bs-border-radius) !important;
+    border-bottom-right-radius: var(--bs-border-radius) !important;
+}
+
+.card-form .accordion-body,
+.card-form .accordion-button {
+    color: inherit !important;
+    background: inherit;
+    background-color: #fafafa;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .3) !important;
+    border-bottom: 1px solid #ced4da !important;
+}
+
+.card-form .accordion-button {
+    border-bottom: none !important;
+    padding: 0 24px;
+    height: 44px;
+}
+
+.card-form .accordion-body {
+    border-top: none !important;
+}
+
+.card-form .accordion-button:hover {
+    background-color: #e9ecef;
+}
+
+.card-form .accordion-button::after {
+    content: none; /* remove o ícone gerado via CSS */
+}
+
+.card-form .accordion-button .icon-title {
+    margin-bottom: 0;
+}
+.card-form .accordion-button .icon-title h6 {
+    font-size: 15px;
+}
+
+/* Datatable */
+.card-form .p-datatable {
+    overflow: hidden;   
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.card-form .p-datatable .p-datatable-thead > tr {
+    padding: unset;
+    text-transform: unset;
+}
+
+.card-form .p-datatable .p-datatable-thead > tr > th,
+.card-form .p-datatable .p-datatable-tbody > tr {
+    background-color: transparent !important;
+    border-bottom: 1px solid #adb5bd;
+}
+
+.card-form .p-datatable .p-datatable-tbody > tr {
+    height: 52px;
+}
+
+.card-form .p-datatable .p-datatable-tbody > tr:hover {
+    background-color: #e9ecef;
+}

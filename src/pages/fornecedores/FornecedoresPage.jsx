@@ -12,10 +12,7 @@ import FornecedoresTable from './components/FornecedoresTable.jsx';
 
 function FornecedoresPage(){
     const [fornecedores, setFornecedores] = useState([]);
-    const [filters, setFilters] = useState({
-        razaoSocial: '',
-        ativo: '',
-    });
+    const [filters, setFilters] = useState({ cnpj: '', razaoSocial: '', representante: '', telefone: '', email: '', ativo: '' });
     const debouncedFilter = useDebounce(filters, 500);
     const { loading, start, stop } = useLoading();
     const navigate = useNavigate();
@@ -31,7 +28,7 @@ function FornecedoresPage(){
     };
 
     const handleClearFilters = () => {
-        setFilters({ razaoSocial: '', ativo: '' });
+        setFilters({ cnpj: '', razaoSocial: '', representante: '', telefone: '', email: '', ativo: '' });
     };
     
     // Preenche o formulário com os dados do banco ao clicar em editar

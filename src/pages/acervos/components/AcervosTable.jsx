@@ -43,7 +43,6 @@ function AcervosTable({ acervos, loading, onEdit, onToggleAtivo }){
             value={acervos} 
             dataKey="id" 
             size='small'
-            stripedRows
             loading={loading}
             emptyMessage="Nenhuma acervo encontrado." 
             paginator 

@@ -57,7 +57,6 @@ function UsuariosTable({ usuarios, loading, onEdit, onToggleBloqueado, onToggleA
             value={usuarios} 
             dataKey="id" 
             size='small'
-            stripedRows
             loading={loading}
             emptyMessage="Nenhum usuário encontrado." 
             paginator 
