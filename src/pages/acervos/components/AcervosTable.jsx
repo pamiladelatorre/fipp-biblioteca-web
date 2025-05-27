@@ -33,7 +33,7 @@ function AcervosTable({ acervos, loading, onEdit, onToggleAtivo }){
         );
     };
 
-    // Exibe botões de editar
+    // Exibe data publicação
     const dataPublicacaoTemplate = (rowData) => {
         return formatDateToBR(rowData.dataPublicacao);
     }

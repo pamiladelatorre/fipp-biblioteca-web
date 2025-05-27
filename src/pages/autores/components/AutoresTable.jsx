@@ -2,7 +2,14 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button, Form } from "react-bootstrap";
 
-function AutoresTable({ autores, loading, onEdit, onToggleAtivo }){
+import { formatDateToBR } from '../../../utils/formatDate';
+
+function AutoresTable({ autores, onEdit, onToggleAtivo }){
+    // Exibe data de nascimento
+    const dataNascimentoTemplate = (rowData) => {
+        return formatDateToBR(rowData.dataNascimento);
+    }
+
     // Exibe o status de ativo da autor
     const ativoTemplate = (rowData) => {
         return (
@@ -36,7 +43,6 @@ function AutoresTable({ autores, loading, onEdit, onToggleAtivo }){
             value={autores} 
             dataKey="id" 
             size='small'
-            loading={loading}
             emptyMessage="Nenhuma autor encontrado." 
             paginator 
             rows={5} 
@@ -48,6 +54,7 @@ function AutoresTable({ autores, loading, onEdit, onToggleAtivo }){
         >
             <Column field="nome" header="Nome" sortable></Column>
             <Column field="nacionalidade" header="Nacionalidade" sortable></Column>
+            <Column field="dataNascimento" header="Data de Nascimento" dataType="date" body={dataNascimentoTemplate}></Column>
             <Column field="ativo" header="Ativo" body={ativoTemplate}></Column>
             <Column header="Ações" body={actionTemplate} style={{ width: '5rem' }}></Column>
         </DataTable>

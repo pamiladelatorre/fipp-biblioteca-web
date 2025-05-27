@@ -8,14 +8,23 @@ function AutorFilters({ filters, onFilterChange, onClearFilters }){
                 <Accordion.Body>
                     <Container>
                         <Row className="justify-content-md-center align-items-center">
-                            <Col md={5}>
+                            <Col md={4}>
                                 <FloatingLabel label="Nome">
                                     <Form.Control 
                                         type='text' 
                                         value={filters.nome}
                                         onChange={(e) => onFilterChange({ ...filters, nome: e.target.value })}
                                         className='form-control-filter' 
-                                        placeholder="Buscar por título..." 
+                                    />                            
+                                </FloatingLabel>
+                            </Col>
+                            <Col md={3}>
+                                <FloatingLabel label="Nacionalidade">
+                                    <Form.Control 
+                                        type='text' 
+                                        value={filters.nacionalidade}
+                                        onChange={(e) => onFilterChange({ ...filters, nacionalidade: e.target.value })}
+                                        className='form-control-filter' 
                                     />                            
                                 </FloatingLabel>
                             </Col>

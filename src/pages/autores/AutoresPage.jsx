@@ -9,15 +9,17 @@ import { useLoading } from '../../hooks/useLoading.js';
 import { getErrorMessage } from '../../utils/handleApiError.js';
 import AutorFilters from './components/AutorFilters.jsx';
 import AutoresTable from './components/AutoresTable.jsx';
+import LoadingBar from '../../components/loading-bar/LoadingBar.jsx';
 
 function AutoresPage(){
     const [autores, setAutores] = useState([]);
     const [filters, setFilters] = useState({
         nome: '',
+        nacionalidade: '',
         ativo: '',
     });
     const debouncedFilter = useDebounce(filters, 500);
-    const { loading, start, stop } = useLoading();
+    const { loading, startLoading, stopLoading } = useLoading();
     const navigate = useNavigate();
 
     // Faz uma busca no banco com base no filtro (com debounce aplicado)
@@ -31,7 +33,7 @@ function AutoresPage(){
     };
 
     const handleClearFilters = () => {
-        setFilters({ nome: '', ativo: '' });
+        setFilters({ nome: '', nacionalidade: '', ativo: '' });
     };
     
     // Preenche o formulário com os dados do banco ao clicar em editar
@@ -64,13 +66,13 @@ function AutoresPage(){
 
     // Carrega a lista de autores, com ou sem filtro
     const buscarAutores = (filters = {}) => {
-        start();
+        startLoading();
         autorService.listar(filters).then((response) => {
             setAutores(response?.data || []);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar autores'));
         }).finally(() => {
-            stop();
+            stopLoading();
         });
     };
 
@@ -89,9 +91,9 @@ function AutoresPage(){
                 />
             </div>
             <div>
+                 {loading && <LoadingBar />}
                 <AutoresTable 
                     autores={autores} 
-                    loading={loading} 
                     onEdit={handleEdit} 
                     onToggleAtivo={handleToggleAtivo} 
                 />

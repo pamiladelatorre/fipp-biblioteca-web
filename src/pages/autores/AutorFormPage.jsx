@@ -6,11 +6,14 @@ import { toast } from 'react-toastify';
 import { getErrorMessage } from '../../utils/handleApiError.js';
 import AutorForm from './components/AutorForm.jsx';
 import * as autorService from '../../services/autorService.js';
+import { useLoadingBar } from '../../contexts/LoadingBarContext.jsx';
+import LoadingOverlayBar from '../../components/loading-overlay/LoadingOverlay.jsx';
 
 function AutorFormPage(){
     const { id } = useParams();
     const isEditMode = Boolean(id);
     const [autorFormData, setAutorFormData] = useState(null);
+    const { isVisible, showLoadingBar, hideLoadingBar } = useLoadingBar();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,10 +24,13 @@ function AutorFormPage(){
 
     const buscarAutor = async () => {
         try {
+            showLoadingBar();
             const { data:dados } = await autorService.buscarPorId(id);
             setAutorFormData(dados);
         } catch (error) {
             toast.error(getErrorMessage(error, 'Erro ao carregar autor para edição'));
+        } finally {
+            hideLoadingBar();
         }
     };
 
@@ -47,8 +53,7 @@ function AutorFormPage(){
 
         try {
             await apiPromise;
-            setAutorFormData(null); // esvazia dados da autor atual
-            // buscarCategorias(); // atualiza a lista
+            navigate(`/cadastros/autores/${data.id}`);
         } catch (_) {
             // erro já tratado pelo toast.promise
         }
@@ -61,6 +66,7 @@ function AutorFormPage(){
                     {isEditMode ? 'Editar Autor' : 'Nova autor'}
                 </Card.Header>
                 <Card.Body>
+                    {<LoadingOverlayBar show={isVisible} />}
                     <AutorForm autor={autorFormData} onSave={handleSave} />
                 </Card.Body>
             </Card>
@@ -69,7 +75,7 @@ function AutorFormPage(){
                 <Button variant='secondary' type='button' onClick={() => navigate('/cadastros/autores')}>
                     <i className="bi bi-arrow-left"></i> Voltar
                 </Button>
-                <Button variant='success' type='submit' onClick={handleSave}>
+                <Button variant='success' type='submit' form="autor-form">
                     <i className="bi bi-check-lg"></i> Salvar
                 </Button>
             </div>
