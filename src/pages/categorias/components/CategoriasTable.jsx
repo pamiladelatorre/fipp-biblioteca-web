@@ -2,7 +2,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button, Form } from "react-bootstrap";
 
-function CategoriasTable({ categorias, loading, onEdit, onToggleAtivo }){
+function CategoriasTable({ categorias, onEdit, onToggleAtivo }){
     // Exibe o status de ativo da categoria
     const ativoTemplate = (rowData) => {
         return (
@@ -36,7 +36,6 @@ function CategoriasTable({ categorias, loading, onEdit, onToggleAtivo }){
             value={categorias} 
             dataKey="id" 
             size='small'
-            loading={loading}
             emptyMessage="Nenhuma categoria encontrada." 
             paginator 
             rows={5} 

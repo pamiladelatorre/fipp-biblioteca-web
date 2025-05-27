@@ -8,6 +8,7 @@ import { useDebounce } from '../../hooks/useDebounce.js';
 import { useLoading } from '../../hooks/useLoading.js';
 import { getErrorMessage } from '../../utils/handleApiError.js';
 import MotivoBaixaFilters from './components/MotivoBaixaFilters.jsx';
+import LoadingBar from '../../components/loading-bar/LoadingBar.jsx';
 import MotivosBaixaTable from './components/MotivosBaixaTable.jsx';
 
 function MotivosBaixaPage(){
@@ -17,7 +18,7 @@ function MotivosBaixaPage(){
         ativo: '',
     });
     const debouncedFilter = useDebounce(filters, 500);
-    const { loading, start, stop } = useLoading();
+    const { loading, startLoading, stopLoading } = useLoading();
     const navigate = useNavigate();
 
     // Faz uma busca no banco com base no filtro (com debounce aplicado)
@@ -64,13 +65,13 @@ function MotivosBaixaPage(){
 
     // Carrega a lista de motivos baixa, com ou sem filtro
     const buscarMotivosBaixa = (filters = {}) => {
-        start();
+        startLoading();
         motivoBaixaService.listar(filters).then((response) => {
             setMotivosBaixa(response?.data || []);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar motivos baixa'));
         }).finally(() => {
-            stop();
+            stopLoading();
         });
     };
 
@@ -89,6 +90,7 @@ function MotivosBaixaPage(){
                 />
             </div>
             <div>
+                {loading && <LoadingBar />}
                 <MotivosBaixaTable 
                     motivosBaixa={motivosBaixa} 
                     loading={loading} 

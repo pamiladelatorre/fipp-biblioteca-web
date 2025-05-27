@@ -8,6 +8,7 @@ import { useDebounce } from '../../hooks/useDebounce.js';
 import { useLoading } from '../../hooks/useLoading.js';
 import { getErrorMessage } from '../../utils/handleApiError.js';
 import GeneroFilters from './components/GeneroFilters.jsx';
+import LoadingBar from '../../components/loading-bar/LoadingBar.jsx';
 import GenerosTable from './components/GenerosTable.jsx';
 
 function GenerosPage(){
@@ -17,7 +18,7 @@ function GenerosPage(){
         ativo: '',
     });
     const debouncedFilter = useDebounce(filters, 500);
-    const { loading, start, stop } = useLoading();
+    const { loading, startLoading, stopLoading } = useLoading();
     const navigate = useNavigate();
 
     // Faz uma busca no banco com base no filtro (com debounce aplicado)
@@ -64,13 +65,13 @@ function GenerosPage(){
 
     // Carrega a lista de generos, com ou sem filtro
     const buscarGeneros = (filters = {}) => {
-        start();
+        startLoading();
         generoService.listar(filters).then((response) => {
             setGeneros(response?.data || []);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar generos'));
         }).finally(() => {
-            stop();
+            stopLoading();
         });
     };
 
@@ -81,7 +82,7 @@ function GenerosPage(){
                     <i className="bi bi-plus-lg"></i> Novo
                 </Button>
             </div>
-            <div>
+            <div>              
                 <GeneroFilters 
                     filters={filters} 
                     onFilterChange={handleFilterChange} 
@@ -89,6 +90,7 @@ function GenerosPage(){
                 />
             </div>
             <div>
+                {loading && <LoadingBar />}  
                 <GenerosTable 
                     generos={generos} 
                     loading={loading} 

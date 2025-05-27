@@ -6,11 +6,14 @@ import { toast } from 'react-toastify';
 import { getErrorMessage } from '../../utils/handleApiError.js';
 import MotivoBaixaForm from './components/MotivoBaixaForm';
 import * as motivoBaixaService from '../../services/motivoBaixaService.js';
+import { useLoadingBar } from '../../contexts/LoadingBarContext.jsx';
+import LoadingOverlayBar from '../../components/loading-overlay/LoadingOverlay.jsx';
 
 function MotivoBaixaFormPage(){
     const { id } = useParams();
     const isEditMode = Boolean(id);
     const [motivoBaixaFormData, setMotivoBaixaFormData] = useState(null);
+    const { isVisible, showLoadingBar, hideLoadingBar } = useLoadingBar();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,10 +24,13 @@ function MotivoBaixaFormPage(){
 
     const buscarMotivoBaixa = async () => {
         try {
+            showLoadingBar();
             const { data:dados } = await motivoBaixaService.buscarPorId(id);
             setMotivoBaixaFormData(dados);
         } catch (error) {
             toast.error(getErrorMessage(error, 'Erro ao carregar motivo baixa para edição'));
+        } finally {
+            hideLoadingBar();
         }
     };
 
@@ -60,6 +66,7 @@ function MotivoBaixaFormPage(){
                     {isEditMode ? 'Editar Motivo Baixa' : 'Nova Motivo Baixa'}
                 </Card.Header>
                 <Card.Body>
+                    {<LoadingOverlayBar show={isVisible} />}
                     <MotivoBaixaForm motivoBaixa={motivoBaixaFormData} onSave={handleSave} />
                 </Card.Body>
             </Card>

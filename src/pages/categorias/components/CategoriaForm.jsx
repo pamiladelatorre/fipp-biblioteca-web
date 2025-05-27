@@ -37,8 +37,7 @@ function CategoriaForm({ categoria, onSave }) {
             <Row>
                 <Col md={6}>
                     <FloatingLabel label="Descrição*">
-                        <Form.Control type='text' placeholder="Digite o nome da categoria" 
-                            {...register('descricao')} isInvalid={!!errors.descricao} />
+                        <Form.Control type='text' {...register('descricao')} isInvalid={!!errors.descricao} />
                         <Form.Control.Feedback type="invalid">{errors.descricao?.message}</Form.Control.Feedback>
                     </FloatingLabel>
                 </Col>

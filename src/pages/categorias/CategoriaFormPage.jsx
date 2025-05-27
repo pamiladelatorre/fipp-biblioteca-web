@@ -6,11 +6,14 @@ import { toast } from 'react-toastify';
 import { getErrorMessage } from '../../utils/handleApiError.js';
 import CategoriaForm from './components/CategoriaForm';
 import * as categoriaService from '../../services/categoriaService.js';
+import { useLoadingBar } from '../../contexts/LoadingBarContext.jsx';
+import LoadingOverlayBar from '../../components/loading-overlay/LoadingOverlay.jsx';
 
 function CategoriaFormPage(){
     const { id } = useParams();
     const isEditMode = Boolean(id);
     const [categoriaFormData, setCategoriaFormData] = useState(null);
+    const { isVisible, showLoadingBar, hideLoadingBar } = useLoadingBar();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,10 +24,13 @@ function CategoriaFormPage(){
 
     const buscarCategoria = async () => {
         try {
+            showLoadingBar();
             const { data:dados } = await categoriaService.buscarPorId(id);
             setCategoriaFormData(dados);
         } catch (error) {
             toast.error(getErrorMessage(error, 'Erro ao carregar categoria para edição'));
+        } finally {
+            hideLoadingBar();
         }
     };
 
@@ -60,6 +66,7 @@ function CategoriaFormPage(){
                     {isEditMode ? 'Editar Categoria' : 'Nova Categoria'}
                 </Card.Header>
                 <Card.Body>
+                    {<LoadingOverlayBar show={isVisible} />}
                     <CategoriaForm categoria={categoriaFormData} onSave={handleSave} />
                 </Card.Body>
             </Card>

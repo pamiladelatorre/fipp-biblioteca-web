@@ -13,7 +13,7 @@ function Header() {
     navigate('/login');
   }
 
-  return (
+  return (<>
     <header className="header d-flex align-items-center">
       <div className='system-data flex-grow-1'>Controll Books</div>
         <div className="user-data d-flex flex-column align-items-end">
@@ -26,7 +26,7 @@ function Header() {
           <span>sair</span>
         </div>
       </Button>
-    </header>
+    </header></>
   )
 }
 

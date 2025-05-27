@@ -2,7 +2,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button, Form } from "react-bootstrap";
 
-function MotivosBaixaTable({ motivosBaixa, loading, onEdit, onToggleAtivo }){
+function MotivosBaixaTable({ motivosBaixa, onEdit, onToggleAtivo }){
     // Exibe o status de ativo do genero
     const ativoTemplate = (rowData) => {
         return (
@@ -36,7 +36,6 @@ function MotivosBaixaTable({ motivosBaixa, loading, onEdit, onToggleAtivo }){
             value={motivosBaixa} 
             dataKey="id" 
             size='small'
-            loading={loading}
             emptyMessage="Nenhum motivo baixa encontrado." 
             paginator 
             rows={5} 

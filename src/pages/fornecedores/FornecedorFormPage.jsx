@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Card, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import LoadingSpinner from '../../components/loading-spinner/LoadingSpinner.jsx';
-import { useLoading } from '../../hooks/useLoading.js';
 
 import { getErrorMessage } from '../../utils/handleApiError.js';
 import FornecedorForm from './components/FornecedorForm';
 import * as fornecedorService from '../../services/fornecedorService.js';
+import { useLoadingBar } from '../../contexts/LoadingBarContext.jsx';
+import LoadingOverlayBar from '../../components/loading-overlay/LoadingOverlay.jsx';
 
 function FornecedorFormPage(){
     const { id } = useParams();
     const isEditMode = Boolean(id);
     const [fornecedorFormData, setFornecedorFormData] = useState(null);
-    const { loading, start, stop } = useLoading();
+    const { isVisible, showLoadingBar, hideLoadingBar } = useLoadingBar();
     const [reload, setReload] = useState(false);
     const navigate = useNavigate();
 
@@ -25,13 +25,13 @@ function FornecedorFormPage(){
 
     const buscarFornecedor = async () => {
         try {
-            start();
+            showLoadingBar();
             const { data:dados } = await fornecedorService.buscarPorId(id);
             setFornecedorFormData(dados);
         } catch (error) {
             toast.error(getErrorMessage(error, 'Erro ao carregar fornecedor para edição'));
-        }finally{
-            stop();
+        } finally{
+            hideLoadingBar();
         }
     };
 
@@ -64,8 +64,6 @@ function FornecedorFormPage(){
         }
     };
 
-    if (loading) return <LoadingSpinner message="Carregando o fornecedor..." />;
-
     return(
         <Container>
             <Card className='card-form'>
@@ -73,6 +71,7 @@ function FornecedorFormPage(){
                     {isEditMode ? 'Editar Fornecedor' : 'Nova Fornecedor'}
                 </Card.Header>
                 <Card.Body>
+                    {<LoadingOverlayBar show={isVisible} />}
                     <FornecedorForm fornecedor={fornecedorFormData} onSave={handleSave} />
                 </Card.Body>
             </Card>

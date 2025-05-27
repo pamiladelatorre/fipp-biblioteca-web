@@ -8,13 +8,14 @@ import { useDebounce } from '../../hooks/useDebounce.js';
 import { useLoading } from '../../hooks/useLoading.js';
 import { getErrorMessage } from '../../utils/handleApiError.js';
 import FornecedorFilters from './components/FornecedorFilters.jsx';
+import LoadingBar from '../../components/loading-bar/LoadingBar.jsx';
 import FornecedoresTable from './components/FornecedoresTable.jsx';
 
 function FornecedoresPage(){
     const [fornecedores, setFornecedores] = useState([]);
     const [filters, setFilters] = useState({ cnpj: '', razaoSocial: '', representante: '', telefone: '', email: '', ativo: '' });
     const debouncedFilter = useDebounce(filters, 500);
-    const { loading, start, stop } = useLoading();
+    const { loading, startLoading, stopLoading } = useLoading();
     const navigate = useNavigate();
 
     // Faz uma busca no banco com base no filtro (com debounce aplicado)
@@ -61,13 +62,13 @@ function FornecedoresPage(){
 
     // Carrega a lista de fornecedores, com ou sem filtro
     const buscarFornecedores = (filters = {}) => {
-        start();
+        startLoading();
         fornecedorService.listar(filters).then((response) => {
             setFornecedores(response?.data || []);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar fornecedores'));
         }).finally(() => {
-            stop();
+            stopLoading();
         });
     };
 
@@ -86,9 +87,9 @@ function FornecedoresPage(){
                 />
             </div>
             <div>
+                {loading && <LoadingBar />}
                 <FornecedoresTable 
                     fornecedores={fornecedores} 
-                    loading={loading} 
                     onEdit={handleEdit} 
                     onToggleAtivo={handleToggleAtivo} 
                 />

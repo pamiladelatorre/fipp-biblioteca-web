@@ -2,7 +2,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button, Form } from "react-bootstrap";
 
-function FornecedoresTable({ fornecedores, loading, onEdit, onToggleAtivo }){
+function FornecedoresTable({ fornecedores, onEdit, onToggleAtivo }){
     // Exibe o status de ativo do usuário
     const ativoTemplate = (rowData) => {
         return (
@@ -36,7 +36,6 @@ function FornecedoresTable({ fornecedores, loading, onEdit, onToggleAtivo }){
             value={fornecedores} 
             dataKey="id" 
             size='small'
-            loading={loading}
             emptyMessage="Nenhum fornecedor encontrado." 
             paginator 
             rows={5} 

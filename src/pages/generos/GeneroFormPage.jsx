@@ -6,11 +6,14 @@ import { toast } from 'react-toastify';
 import { getErrorMessage } from '../../utils/handleApiError.js';
 import GeneroForm from './components/GeneroForm';
 import * as generoService from '../../services/generoService.js';
+import { useLoadingBar } from '../../contexts/LoadingBarContext.jsx';
+import LoadingOverlayBar from '../../components/loading-overlay/LoadingOverlay.jsx';
 
 function GeneroFormPage(){
     const { id } = useParams();
     const isEditMode = Boolean(id);
     const [generoFormData, setGeneroFormData] = useState(null);
+    const { isVisible, showLoadingBar, hideLoadingBar } = useLoadingBar();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,10 +24,13 @@ function GeneroFormPage(){
 
     const buscarGenero = async () => {
         try {
+            showLoadingBar();
             const { data:dados } = await generoService.buscarPorId(id);
             setGeneroFormData(dados);
         } catch (error) {
             toast.error(getErrorMessage(error, 'Erro ao carregar genero para edição'));
+        } finally {
+            hideLoadingBar();
         }
     };
 
@@ -60,6 +66,7 @@ function GeneroFormPage(){
                     {isEditMode ? 'Editar Genero' : 'Nova Genero'}
                 </Card.Header>
                 <Card.Body>
+                    {<LoadingOverlayBar show={isVisible} />}
                     <GeneroForm genero={generoFormData} onSave={handleSave} />
                 </Card.Body>
             </Card>

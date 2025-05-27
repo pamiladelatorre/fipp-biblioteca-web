@@ -8,6 +8,7 @@ import { useDebounce } from '../../hooks/useDebounce.js';
 import { useLoading } from '../../hooks/useLoading.js';
 import { getErrorMessage } from '../../utils/handleApiError.js';
 import CategoriaFilters from './components/CategoriaFilters.jsx';
+import LoadingBar from '../../components/loading-bar/LoadingBar.jsx';
 import CategoriasTable from './components/CategoriasTable.jsx';
 
 function CategoriasPage(){
@@ -17,7 +18,7 @@ function CategoriasPage(){
         ativo: '',
     });
     const debouncedFilter = useDebounce(filters, 500);
-    const { loading, start, stop } = useLoading();
+    const { loading, startLoading, stopLoading } = useLoading();
     const navigate = useNavigate();
 
     // Faz uma busca no banco com base no filtro (com debounce aplicado)
@@ -64,13 +65,13 @@ function CategoriasPage(){
 
     // Carrega a lista de categorias, com ou sem filtro
     const buscarCategorias = (filters = {}) => {
-        start();
+        startLoading();
         categoriaService.listar(filters).then((response) => {
             setCategorias(response?.data || []);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar categorias'));
         }).finally(() => {
-            stop();
+            stopLoading();
         });
     };
 
@@ -89,9 +90,9 @@ function CategoriasPage(){
                 />
             </div>
             <div>
+                {loading && <LoadingBar />}
                 <CategoriasTable 
                     categorias={categorias} 
-                    loading={loading} 
                     onEdit={handleEdit} 
                     onToggleAtivo={handleToggleAtivo} 
                 />

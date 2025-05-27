@@ -2,7 +2,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button, Form } from "react-bootstrap";
 
-function GenerosTable({ generos, loading, onEdit, onToggleAtivo }){
+function GenerosTable({ generos, onEdit, onToggleAtivo }){
     // Exibe o status de ativo do genero
     const ativoTemplate = (rowData) => {
         return (
@@ -36,7 +36,6 @@ function GenerosTable({ generos, loading, onEdit, onToggleAtivo }){
             value={generos} 
             dataKey="id" 
             size='small'
-            loading={loading}
             emptyMessage="Nenhum genero encontrado." 
             paginator 
             rows={5} 
