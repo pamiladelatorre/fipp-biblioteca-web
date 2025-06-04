@@ -8,17 +8,36 @@ function AcervoFilters({ filters, onFilterChange, onClearFilters }){
                 <Accordion.Body>
                     <Container>
                         <Row className="justify-content-md-center align-items-center">
-                            <Col md={5}>
+                            <Col md={3}>
                                 <FloatingLabel label="Título">
                                     <Form.Control 
                                         type='text' 
                                         value={filters.titulo}
                                         onChange={(e) => onFilterChange({ ...filters, titulo: e.target.value })}
                                         className='form-control-filter' 
-                                        placeholder="Buscar por título..." 
                                     />                            
                                 </FloatingLabel>
                             </Col>
+                            <Col md={3}>
+                                <FloatingLabel label="Editora">
+                                    <Form.Control 
+                                        type='text' 
+                                        value={filters.editora}
+                                        onChange={(e) => onFilterChange({ ...filters, editora: e.target.value })}
+                                        className='form-control-filter' 
+                                    />                            
+                                </FloatingLabel>
+                            </Col>
+                            <Col md={3}>
+                                <FloatingLabel label="ISBN">
+                                    <Form.Control 
+                                        type='text' 
+                                        value={filters.isbn}
+                                        onChange={(e) => onFilterChange({ ...filters, isbn: e.target.value })}
+                                        className='form-control-filter' 
+                                    />                            
+                                </FloatingLabel>
+                            </Col>                            
                             <Col md={2}>
                                 <FloatingLabel label="Ativo">
                                     <Form.Select 

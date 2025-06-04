@@ -16,6 +16,11 @@ export const listar = async (filters = {}) => {
     return await apiFetch(url);
 };
 
+// Busca um categorias ativas
+export const buscarAtivas = async () => {
+    return await apiFetch('/categorias/ativas');
+};
+
 // Busca uma categoria pelo ID
 export const buscarPorId = async (id) => {
     return await apiFetch(`/categorias/${id}`);

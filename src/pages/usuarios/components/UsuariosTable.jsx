@@ -3,7 +3,7 @@ import { Column } from 'primereact/column';
 import { Button, Form } from "react-bootstrap";
 import { TipoUsuario } from '../../../enums/TipoUsuario';
 
-function UsuariosTable({ usuarios, loading, onEdit, onToggleBloqueado, onToggleAtivo }){
+function UsuariosTable({ usuarios, onEdit, onToggleBloqueado, onToggleAtivo }){
     // Exibe o tipo de usuário
     const TipoUsuarioTemplate = (rowData) => {
         return TipoUsuario[rowData.tipoUsuario]
@@ -57,7 +57,6 @@ function UsuariosTable({ usuarios, loading, onEdit, onToggleBloqueado, onToggleA
             value={usuarios} 
             dataKey="id" 
             size='small'
-            loading={loading}
             emptyMessage="Nenhum usuário encontrado." 
             paginator 
             rows={5} 

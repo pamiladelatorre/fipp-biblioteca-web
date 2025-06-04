@@ -23,7 +23,7 @@ export const buscarPorId = async (id) => {
 
 // Atualiza os dados de um usuario existente
 export const atualizar = async (id, dados) => {
-    return await apiFetch(`/usuarioss/${id}`, {
+    return await apiFetch(`/usuarios/${id}`, {
         method: 'PUT',
         body: JSON.stringify(dados)
     });

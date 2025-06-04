@@ -16,6 +16,11 @@ export const listar = async (filters = {}) => {
     return await apiFetch(url);
 };
 
+// Busca um autores ativos
+export const buscarAtivos = async () => {
+    return await apiFetch('/autores/ativos');
+};
+
 // Busca uma autor pelo ID
 export const buscarPorId = async (id) => {
     return await apiFetch(`/autores/${id}`);

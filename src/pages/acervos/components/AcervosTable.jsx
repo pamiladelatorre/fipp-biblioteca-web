@@ -4,7 +4,7 @@ import { Button, Form } from "react-bootstrap";
 
 import { formatDateToBR } from '../../../utils/formatDate';
 
-function AcervosTable({ acervos, loading, onEdit, onToggleAtivo }){
+function AcervosTable({ acervos, onEdit, onToggleAtivo }){
     // Exibe o status de ativo da categoria
     const ativoTemplate = (rowData) => {
         return (
@@ -43,7 +43,6 @@ function AcervosTable({ acervos, loading, onEdit, onToggleAtivo }){
             value={acervos} 
             dataKey="id" 
             size='small'
-            loading={loading}
             emptyMessage="Nenhuma acervo encontrado." 
             paginator 
             rows={5} 

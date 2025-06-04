@@ -8,16 +8,19 @@ import { useDebounce } from '../../hooks/useDebounce.js';
 import { useLoading } from '../../hooks/useLoading.js';
 import { getErrorMessage } from '../../utils/handleApiError.js';
 import AcervoFilters from './components/AcervoFilters.jsx';
+import LoadingBar from '../../components/loading-bar/LoadingBar.jsx';
 import AcervosTable from './components/AcervosTable.jsx';
 
 function AcervosPage(){
     const [acervos, setAcervos] = useState([]);
     const [filters, setFilters] = useState({
         titulo: '',
+        editora: '',
+        isbn: '',
         ativo: '',
     });
     const debouncedFilter = useDebounce(filters, 500);
-    const { loading, start, stop } = useLoading();
+    const { loading, startLoading, stopLoading } = useLoading();
     const navigate = useNavigate();
 
     // Faz uma busca no banco com base no filtro (com debounce aplicado)
@@ -31,7 +34,7 @@ function AcervosPage(){
     };
 
     const handleClearFilters = () => {
-        setFilters({ titulo: '', ativo: '' });
+        setFilters({ titulo: '', editora: '', isbn: '', ativo: '' });
     };
     
     // Preenche o formulário com os dados do banco ao clicar em editar
@@ -64,13 +67,13 @@ function AcervosPage(){
 
     // Carrega a lista de acervos, com ou sem filtro
     const buscarAcervos = (filters = {}) => {
-        start();
+        startLoading();
         acervoService.listar(filters).then((response) => {
             setAcervos(response?.data || []);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar acervos'));
         }).finally(() => {
-            stop();
+            stopLoading();
         });
     };
 
@@ -89,9 +92,9 @@ function AcervosPage(){
                 />
             </div>
             <div>
+                {loading && <LoadingBar />}
                 <AcervosTable 
                     acervos={acervos} 
-                    loading={loading} 
                     onEdit={handleEdit} 
                     onToggleAtivo={handleToggleAtivo} 
                 />

@@ -9,15 +9,21 @@ import { useLoading } from '../../hooks/useLoading.js';
 import { getErrorMessage } from '../../utils/handleApiError.js';
 import UsuarioFilters from './components/UsuarioFilters.jsx';
 import UsuariosTable from './components/UsuariosTable.jsx';
+import LoadingBar from '../../components/loading-bar/LoadingBar.jsx';
 
 function UsuariosPage(){
     const [usuarios, setUsuarios] = useState([]);
     const [filters, setFilters] = useState({
+        cpf: '',
         nome: '',
-        ativo: '',
+        telefone: '',
+        email: '',
+        tipo: '',
+        bloqueado: '',
+        ativo: ''
     });
     const debouncedFilter = useDebounce(filters, 500);
-    const { loading, start, stop } = useLoading();
+    const { loading, startLoading, stopLoading } = useLoading();
     const navigate = useNavigate();
 
     // Faz uma busca no banco com base no filtro (com debounce aplicado)
@@ -31,7 +37,7 @@ function UsuariosPage(){
     };
 
     const handleClearFilters = () => {
-        setFilters({ nome: '', ativo: '' });
+        setFilters({ cpf: '', nome: '', telefone: '', email: '', tipo: '', bloqueado: '', ativo: '' });
     };
     
     // Preenche o formulário com os dados do banco ao clicar em editar
@@ -64,13 +70,13 @@ function UsuariosPage(){
 
     // Carrega a lista de usuários, com ou sem filtro
     const buscarUsuarios = (filters = {}) => {
-        start();
+        startLoading();
         usuarioService.listar(filters).then((response) => {
             setUsuarios(response?.data || []);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar usuários'));
         }).finally(() => {
-            stop();
+            stopLoading();
         });
     };
 
@@ -89,9 +95,9 @@ function UsuariosPage(){
                 />
             </div>
             <div>
+                {loading && <LoadingBar />}
                 <UsuariosTable 
                     usuarios={usuarios} 
-                    loading={loading} 
                     onEdit={handleEdit} 
                     onToggleAtivo={handleToggleAtivo} 
                 />

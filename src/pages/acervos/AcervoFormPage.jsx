@@ -6,11 +6,14 @@ import { toast } from 'react-toastify';
 import { getErrorMessage } from '../../utils/handleApiError.js';
 import AcervoForm from './components/AcervoForm';
 import * as acervoService from '../../services/acervoService.js';
+import { useLoadingBar } from '../../contexts/LoadingBarContext.jsx';
+import LoadingOverlayBar from '../../components/loading-overlay/LoadingOverlay.jsx';
 
 function AcervoFormPage(){
     const { id } = useParams();
     const isEditMode = Boolean(id);
     const [acervoFormData, setAcervoFormData] = useState(null);
+    const { isVisible, showLoadingBar, hideLoadingBar } = useLoadingBar();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,10 +24,13 @@ function AcervoFormPage(){
 
     const buscarAcervo = async () => {
         try {
+            showLoadingBar();
             const { data:dados } = await acervoService.buscarPorId(id);
             setAcervoFormData(dados);
         } catch (error) {
             toast.error(getErrorMessage(error, 'Erro ao carregar acervo para edição'));
+        } finally {
+            hideLoadingBar();
         }
     };
 
@@ -47,8 +53,7 @@ function AcervoFormPage(){
 
         try {
             await apiPromise;
-            setAcervoFormData(null); // esvazia dados da acervo atual
-            // buscarCategorias(); // atualiza a lista
+            navigate(`/cadastros/acervos/${data.id}`);
         } catch (_) {
             // erro já tratado pelo toast.promise
         }
@@ -61,6 +66,7 @@ function AcervoFormPage(){
                     {isEditMode ? 'Editar Acervo' : 'Nova Acervo'}
                 </Card.Header>
                 <Card.Body>
+                    {<LoadingOverlayBar show={isVisible} />}
                     <AcervoForm acervo={acervoFormData} onSave={handleSave} />
                 </Card.Body>
             </Card>
@@ -69,7 +75,7 @@ function AcervoFormPage(){
                 <Button variant='secondary' type='button' onClick={() => navigate('/acervos')}>
                     <i className="bi bi-arrow-left"></i> Voltar
                 </Button>
-                <Button variant='success' type='submit' onClick={handleSave}>
+                <Button variant='success' type='submit' form="acervo-form">
                     <i className="bi bi-check-lg"></i> Salvar
                 </Button>
             </div>

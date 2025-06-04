@@ -15,7 +15,6 @@ function FornecedorFilters({ filters, onFilterChange, onClearFilters }){
                                         value={filters.cnpj}
                                         onChange={(e) => onFilterChange({ ...filters, cnpj: e.target.value })}
                                         className='form-control-filter' 
-                                        placeholder="Buscar por cnpj..." 
                                     />                            
                                 </FloatingLabel>
                             </Col>
@@ -26,7 +25,6 @@ function FornecedorFilters({ filters, onFilterChange, onClearFilters }){
                                         value={filters.razaoSocial}
                                         onChange={(e) => onFilterChange({ ...filters, razaoSocial: e.target.value })}
                                         className='form-control-filter' 
-                                        placeholder="Buscar por Razão social..." 
                                     />                            
                                 </FloatingLabel>
                             </Col>
@@ -37,7 +35,7 @@ function FornecedorFilters({ filters, onFilterChange, onClearFilters }){
                                         value={filters.representante}
                                         onChange={(e) => onFilterChange({ ...filters, representante: e.target.value })}
                                         className='form-control-filter' 
-                                        placeholder="Buscar por representante..." 
+                                        placeholder="Buscar por representante.." 
                                     />                            
                                 </FloatingLabel>
                             </Col>
@@ -48,7 +46,6 @@ function FornecedorFilters({ filters, onFilterChange, onClearFilters }){
                                         value={filters.telefone}
                                         onChange={(e) => onFilterChange({ ...filters, telefone: e.target.value })}
                                         className='form-control-filter' 
-                                        placeholder="Buscar por telefone..." 
                                     />                            
                                 </FloatingLabel>
                             </Col>
@@ -59,7 +56,6 @@ function FornecedorFilters({ filters, onFilterChange, onClearFilters }){
                                         value={filters.email}
                                         onChange={(e) => onFilterChange({ ...filters, email: e.target.value })}
                                         className='form-control-filter' 
-                                        placeholder="Buscar por email..." 
                                     />                            
                                 </FloatingLabel>
                             </Col>
