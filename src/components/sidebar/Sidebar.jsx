@@ -57,7 +57,6 @@ export default function Sidebar() {
               <Nav.Link as={Link} to="/movimentacoes/renovacoes"><i className="bi bi-arrow-clockwise me-2"></i>Renovações</Nav.Link>
               <Nav.Link as={Link} to="/movimentacoes/reservas"><i className="bi bi-bookmark-check me-2"></i>Reservas</Nav.Link>              
               <Nav.Link as={Link} to="/movimentacoes/devolucoes"><i className="bi bi-check2-circle me-2"></i>Devoluções</Nav.Link>
-              <Nav.Link as={Link} to="/movimentacoes/baixas"><i className="bi bi-trash3 me-2"></i>Baixas</Nav.Link>
             </Nav>
           </Accordion.Body>
         </Accordion.Item>
