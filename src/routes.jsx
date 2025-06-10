@@ -21,8 +21,10 @@ import MotivosBaixaPage from './pages/motivos-baixa/MotivosBaixaPage';
 import MotivoBaixaFormPage from './pages/motivos-baixa/MotivoBaixaFormPage';
 import AcervosPage from './pages/acervos/AcervosPage';
 import AcervoFormPage from './pages/acervos/AcervoFormPage';
+import MovimentacoesPage from './pages/movimentacoes/MovimentacoesPage';
 import UsuariosPage from './pages/usuarios/UsuariosPage';
 import UsuarioFormPage from './pages/usuarios/UsuarioFormPage';
+import ComprasPage from './pages/compras/ComprasPage';
 
 const AppRoutes = () => (
     <Router>
@@ -61,12 +63,17 @@ const AppRoutes = () => (
                     <Route path='entradas' element={<EntradasPage />} />
                     <Route path='exemplares' element={<ExemplaresPage />} />
                 </Route> 
+
+                <Route path='/movimentacoes' element={<MovimentacoesPage />} />
+
                 <Route path='/usuarios'>
                     <Route path='' element={<UsuariosPage />} />
                     <Route path='novo' element={<UsuarioFormPage />} />
                     <Route path=':id' element={<UsuarioFormPage />} />
                     <Route path='infracoes' element={<InfracoesPage />} />
                 </Route> 
+
+                <Route path='/compras' element={<ComprasPage />} />
             </Route>
      
             <Route path="*" element={<LoginPage />} />

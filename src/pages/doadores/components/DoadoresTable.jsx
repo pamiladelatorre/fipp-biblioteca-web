@@ -1,9 +1,12 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button, Form } from "react-bootstrap";
-
+import { TipoPessoa } from '../../../enums/TipoPessoa';
 
 function DoadoresTable({ doadores, onEdit, onToggleAtivo }) {
+    //Exibe o tipo de pessoa
+    const tipoPessoTemplate = (rowData) => TipoPessoa[rowData.tipoPessoa]
+
     // Exibe o status de ativo do doador
     const ativoTemplate = (rowData) => {
         return (
@@ -45,13 +48,12 @@ function DoadoresTable({ doadores, onEdit, onToggleAtivo }) {
             paginatorLeft={'Registro por página'} 
             tableStyle={{ minWidth: '30rem' }}
         >
-            <Column field='tipoPessoa' header="Tipo" sortable></Column>
-            <Column field="nome" header="Nome" sortable></Column>
             <Column field="documento" header="Documento" sortable></Column>
+            <Column field="nome" header="Nome" sortable></Column>
             <Column field="email" header="E-mail" sortable></Column>
             <Column field="telefone" header="Telefone" sortable></Column>
-            <Column field="endereco" header="Endereço" sortable></Column>
-            <Column field="ativo" header="Ativo" body={ativoTemplate} sortable></Column>
+            <Column field='tipoPessoa' header="Tipo" body={tipoPessoTemplate}></Column>
+            <Column field="ativo" header="Ativo" body={ativoTemplate}></Column>
              <Column header="Ações" body={actionTemplate} style={{ width: '5rem' }}></Column>
         </DataTable>
      );

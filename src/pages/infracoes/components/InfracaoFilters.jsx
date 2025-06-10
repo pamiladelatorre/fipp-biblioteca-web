@@ -11,7 +11,7 @@ function InfracaoFilters({ filters, onFilterChange, onClearFilters }){
                 <Accordion.Body>
                     <Container>
                         <Row className="justify-content-md-center align-items-center">
-                            <Col md={4} className="mb-2">
+                            <Col md={4}>
                                 <FloatingLabel label="Usuário">
                                     <Form.Control 
                                         type='text' 
@@ -21,7 +21,7 @@ function InfracaoFilters({ filters, onFilterChange, onClearFilters }){
                                     />                            
                                 </FloatingLabel>
                             </Col>
-                            <Col md={2} className="mb-2">
+                            <Col md={2}>
                                 <FloatingLabel label="Tipo">
                                     <Form.Select 
                                         aria-label="Tipo" 
@@ -35,7 +35,7 @@ function InfracaoFilters({ filters, onFilterChange, onClearFilters }){
                                     </Form.Select>                              
                                 </FloatingLabel>
                             </Col>
-                            <Col md={2} className="mb-2">
+                            <Col md={2}>
                                 <FloatingLabel label="Grau">
                                     <Form.Select 
                                         aria-label="Grau" 
@@ -49,7 +49,7 @@ function InfracaoFilters({ filters, onFilterChange, onClearFilters }){
                                     </Form.Select>                              
                                 </FloatingLabel>
                             </Col>
-                            <Col md={2} className="mb-2">
+                            <Col md={2}>
                                 <FloatingLabel label="Status">
                                     <Form.Select 
                                         aria-label="Status" 

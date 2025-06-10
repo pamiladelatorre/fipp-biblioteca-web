@@ -8,18 +8,7 @@ function DoadorFilters({ filters, onFilterChange, onClearFilters }) {
                 <Accordion.Body>
                     <Container>
                         <Row className="justify-content-md-center align-items-center">
-                            <Col md={3} className="mb-2">
-                                <FloatingLabel label="Nome">
-                                    <Form.Control
-                                        type='text'
-                                        value={filters.nome}
-                                        onChange={(e) => onFilterChange({ ...filters, nome: e.target.value })}
-                                        className='form-control-filter'
-                                        placeholder="Buscar por nome..."
-                                    />
-                                </FloatingLabel>
-                                </Col>
-                            <Col md={4} className="mb-2">
+                            <Col md={3}>
                                 <FloatingLabel label="Documento">
                                     <Form.Control 
                                         type='text' 
@@ -30,7 +19,18 @@ function DoadorFilters({ filters, onFilterChange, onClearFilters }) {
                                     />                            
                                 </FloatingLabel>
                             </Col>
-                                 <Col md={2}>
+                            <Col md={4}>
+                                <FloatingLabel label="Nome">
+                                    <Form.Control
+                                        type='text'
+                                        value={filters.nome}
+                                        onChange={(e) => onFilterChange({ ...filters, nome: e.target.value })}
+                                        className='form-control-filter'
+                                        placeholder="Buscar por nome..."
+                                    />
+                                </FloatingLabel>
+                            </Col>
+                            <Col md={2}>
                                 <FloatingLabel label="Ativo">
                                     <Form.Select 
                                         aria-label="Ativo" 

@@ -1,26 +1,26 @@
 import { Accordion, Container, Row, Col, FloatingLabel, Form, Button } from "react-bootstrap";
-import { ExemplarEstado } from '../../../enums/ExemplarEstado';
-import { ExemplarStatus } from '../../../enums/ExemplarStatus';
+import { MovimentacaoEtapa } from "../../../enums/MovimentacaoEtapa";
+import { MovimentacaoStatus } from "../../../enums/MovimentacaoStatus";
 
-function ExemplarFilters({ filters, onFilterChange, onClearFilters }){
+function MovimentacaoFilters({ filters, onFilterChange, onClearFilters }){
     return(
         <Accordion defaultActiveKey="0">
             <Accordion.Item eventKey="0">
-                <Accordion.Header>Exemplares</Accordion.Header>
+                <Accordion.Header>Movimentações de Exemplares</Accordion.Header>
                 <Accordion.Body>
                     <Container>
                         <Row className="justify-content-md-center align-items-center">
-                            <Col md={4}>
+                            <Col md={4} className="mb-2">
                                 <FloatingLabel label="Acervo">
                                     <Form.Control 
                                         type='text' 
-                                        value={filters.titulo}
+                                        value={filters.acervo}
                                         onChange={(e) => onFilterChange({ ...filters, acervo: e.target.value })}
                                         className='form-control-filter' 
                                     />                            
                                 </FloatingLabel>
                             </Col>
-                            <Col md={2}>
+                            <Col md={2} className="mb-2">
                                 <FloatingLabel label="Tombo">
                                     <Form.Control 
                                         type='text' 
@@ -29,21 +29,31 @@ function ExemplarFilters({ filters, onFilterChange, onClearFilters }){
                                         className='form-control-filter' 
                                     />                            
                                 </FloatingLabel>
-                            </Col>                             
-                            <Col md={2}>
-                                <FloatingLabel label="Estado">
+                            </Col>  
+                            <Col md={4} className="mb-2">
+                                <FloatingLabel label="Usuário">
+                                    <Form.Control 
+                                        type='text' 
+                                        value={filters.usuario}
+                                        onChange={(e) => onFilterChange({ ...filters, usuario: e.target.value })}
+                                        className='form-control-filter' 
+                                    />                            
+                                </FloatingLabel>
+                            </Col>                          
+                            <Col md={2} className="mb-2">
+                                <FloatingLabel label="Etapa">
                                     <Form.Select 
-                                        aria-label="Estado" 
-                                        value={filters.estado} 
-                                        onChange={(e) => onFilterChange({ ...filters, estado: e.target.value })}
+                                        aria-label="Etapa" 
+                                        value={filters.etapa} 
+                                        onChange={(e) => onFilterChange({ ...filters, etapa: e.target.value })}
                                     >
                                         <option></option>
-                                        {Object.entries(ExemplarEstado).map(([key, label]) => (
+                                        {Object.entries(MovimentacaoEtapa).map(([key, label]) => (
                                             <option key={key} value={key}>{label}</option>
                                         ))}
                                     </Form.Select>                              
                                 </FloatingLabel>
-                            </Col> 
+                            </Col>
                             <Col md={2}>
                                 <FloatingLabel label="Status">
                                     <Form.Select 
@@ -52,12 +62,12 @@ function ExemplarFilters({ filters, onFilterChange, onClearFilters }){
                                         onChange={(e) => onFilterChange({ ...filters, status: e.target.value })}
                                     >
                                         <option></option>
-                                        {Object.entries(ExemplarStatus).map(([key, label]) => (
+                                        {Object.entries(MovimentacaoStatus).map(([key, label]) => (
                                             <option key={key} value={key}>{label}</option>
                                         ))}
                                     </Form.Select>                              
                                 </FloatingLabel>
-                            </Col>                                                                                                           
+                            </Col>                            
                             <Col md={1}>
                                 <Button variant="secondary" size="sm" title="Limpar filtros" onClick={onClearFilters} className='rounded-pill me-1'>
                                     <i className='bi bi-arrow-counterclockwise'></i>
@@ -71,4 +81,4 @@ function ExemplarFilters({ filters, onFilterChange, onClearFilters }){
     );
 };
 
-export default ExemplarFilters;
+export default MovimentacaoFilters;

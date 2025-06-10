@@ -49,21 +49,13 @@ export default function Sidebar() {
         </Accordion.Item>
 
         {/* Movimentações */}
-        <Accordion.Item eventKey="2">
-          <Accordion.Header><i className="bi bi-arrow-left-right me-2"></i>Movimentações</Accordion.Header>
-          <Accordion.Body>
-            <Nav className="flex-column">
-              <Nav.Link as={Link} to="/movimentacoes/emprestimos"><i className="bi bi-arrow-left-right me-2"></i>Empréstimos</Nav.Link>
-              <Nav.Link as={Link} to="/movimentacoes/renovacoes"><i className="bi bi-arrow-clockwise me-2"></i>Renovações</Nav.Link>
-              <Nav.Link as={Link} to="/movimentacoes/reservas"><i className="bi bi-bookmark-check me-2"></i>Reservas</Nav.Link>              
-              <Nav.Link as={Link} to="/movimentacoes/devolucoes"><i className="bi bi-check2-circle me-2"></i>Devoluções</Nav.Link>
-            </Nav>
-          </Accordion.Body>
-        </Accordion.Item>
+        <Nav className="flex-column">
+          <Nav.Link as={Link} to="/movimentacoes" className='menu-item'><i className="bi bi-arrow-left-right me-2"></i>Movimentações</Nav.Link>
+        </Nav>
 
         {/* Usuários */}
         {canAccess(['administrador']) && (
-          <Accordion.Item eventKey="3">
+          <Accordion.Item eventKey="2">
             <Accordion.Header><i className="bi bi-people me-2"></i>Gestão de Usuários</Accordion.Header>
             <Accordion.Body>
               <Nav className="flex-column">
@@ -75,7 +67,7 @@ export default function Sidebar() {
         )}
       </Accordion>
 
-      {/* Link para Home */}
+      {/* Link para Compras */}
       <Nav className="flex-column">
         <Nav.Link as={Link} to="/compras" className='menu-item'><i className="bi bi-cart4 me-2"></i>Compras</Nav.Link>
       </Nav>
