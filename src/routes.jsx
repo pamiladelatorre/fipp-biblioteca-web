@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/login/LoginPage';
 import Layout from './layouts/Layout';
 import HomePage from './pages/home/HomePage';
+import InfracoesPage from './pages/infracoes/InfracoesPage';
 import FornecedoresPage from './pages/fornecedores/FornecedoresPage';
 import FornecedorFormPage from './pages/fornecedores/FornecedorFormPage';
 // import DoadoresPage from './pages/doadores/DoadoresPage';
@@ -10,6 +11,8 @@ import FornecedorFormPage from './pages/fornecedores/FornecedorFormPage';
 // import AssinaturaFormPage from './pages/assinaturas/AssinaturaFormPage';
 import CategoriasPage from './pages/categorias/CategoriasPage';
 import CategoriaFormPage from './pages/categorias/CategoriaFormPage';
+import EntradasPage from './pages/entradas/EntradasPage';
+import ExemplaresPage from './pages/exemplares/ExamplaresPage';
 import GenerosPage from './pages/generos/GenerosPage';
 import GeneroFormPage from './pages/generos/GeneroFormPage';
 import AutoresPage from './pages/autores/AutoresPage';
@@ -55,12 +58,15 @@ const AppRoutes = () => (
                     <Route path='' element={<AcervosPage />} />
                     <Route path='novo' element={<AcervoFormPage />} />
                     <Route path=':id' element={<AcervoFormPage />} />
+                    <Route path='entradas' element={<EntradasPage />} />
+                    <Route path='exemplares' element={<ExemplaresPage />} />
                 </Route> 
                 <Route path='/usuarios'>
                     <Route path='' element={<UsuariosPage />} />
                     <Route path='novo' element={<UsuarioFormPage />} />
                     <Route path=':id' element={<UsuarioFormPage />} />
-                </Route>               
+                    <Route path='infracoes' element={<InfracoesPage />} />
+                </Route> 
             </Route>
      
             <Route path="*" element={<LoginPage />} />
