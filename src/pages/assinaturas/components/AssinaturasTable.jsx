@@ -1,7 +1,7 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button, Form } from "react-bootstrap";
-import dayjs from 'dayjs';
+
 
 function AssinaturasTable({ assinaturas, onEdit, onToggleAtivo }) {
     const ativoTemplate = (rowData) => {

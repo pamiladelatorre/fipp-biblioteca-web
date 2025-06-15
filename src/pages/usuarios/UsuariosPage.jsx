@@ -80,13 +80,58 @@ function UsuariosPage(){
         });
     };
 
+    const handleGerarExcel = async () => {
+    try {
+        const response = await fetch('http://localhost:3000/api/relatorios/usuarios/excel');
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'usuarios.xlsx';
+        a.click();
+        window.URL.revokeObjectURL(url);
+    } catch (error) {
+        toast.error('Erro ao gerar Excel');
+        console.error(error);
+    }
+};
+
+const handleGerarPDF = async () => {
+    try {
+        const response = await fetch('http://localhost:3000/api/relatorios/usuarios/pdf');
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'usuarios.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+    } catch (error) {
+        toast.error('Erro ao gerar PDF');
+        console.error(error);
+    }
+};
+
+
+
+
     return(
         <Stack>
             <div className="page-header-action">
                 <Button onClick={() => navigate('/usuarios/novo')}>
                     <i className="bi bi-plus-lg"></i> Novo
                 </Button>
+                    <Button variant="success" onClick={handleGerarExcel}>
+                            <i className="bi bi-file-earmark-excel"></i> Excel
+                    </Button>
+
+                    <Button variant="danger" onClick={handleGerarPDF}>
+                            <i className="bi bi-file-earmark-pdf"></i> PDF
+                    </Button>
             </div>
+
+
+
             <div>
                 <UsuarioFilters 
                     filters={filters} 
