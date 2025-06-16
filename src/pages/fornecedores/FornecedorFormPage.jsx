@@ -80,9 +80,7 @@ function FornecedorFormPage(){
                 <Button variant='secondary' type='button' onClick={() => navigate('/cadastros/fornecedores')}>
                     <i className="bi bi-arrow-left"></i> Voltar
                 </Button>
-                <Button variant='success' type='submit' form="fornecedor-form">
-                    <i className="bi bi-check-lg"></i> Salvar
-                </Button>
+
             </div>
         </Container>
     );

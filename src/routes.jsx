@@ -42,7 +42,7 @@ const AppRoutes = () => (
                     <Route path='doadores/:id' element={<DoadorFormPage />} />                                  
                     <Route path='assinaturas' element={<AssinaturasPage />} />
                     <Route path='assinaturas/novo' element={<AssinaturaFormPage />} />
-                    <Route path='assinaturas/:id' element={<AssinaturaFormPage />} /> 
+                    <Route path='assinaturas/:id' element={<AssinaturaFormPage />} /> */}
                     <Route path='categorias' element={<CategoriasPage />} />
                     <Route path='categorias/nova' element={<CategoriaFormPage />} />
                     <Route path='categorias/:id' element={<CategoriaFormPage />} />  
