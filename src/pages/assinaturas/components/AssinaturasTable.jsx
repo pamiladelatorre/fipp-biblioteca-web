@@ -63,8 +63,8 @@ function AssinaturasTable({ assinaturas, onEdit, onToggleAtivo }) {
             <Column field="periodicidade" header="Periodicidade" sortable />
             <Column field="numeroContrato" header="Contrato" sortable />
             <Column field="valor" header="Valor" sortable body={(row) => formatCurrency(row.valor)} />
-            <Column field="data_inicio" header="Início" body={(row) => formatDate(row.data_inicio)} sortable />
-            <Column field="data_fim" header="Fim" body={(row) => formatDate(row.data_fim)} sortable />
+            <Column field="dataInicio" header="Início" body={(row) => formatDate(row.dataInicio)} sortable />
+            <Column field="dataFim" header="Fim" body={(row) => formatDate(row.dataFim)} sortable />
             <Column field="ativo" header="Ativo" body={ativoTemplate} />
             <Column header="Ações" body={actionTemplate} style={{ width: '6rem' }} />
         </DataTable>

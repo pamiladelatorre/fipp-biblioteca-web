@@ -7,8 +7,8 @@ import FornecedoresPage from './pages/fornecedores/FornecedoresPage';
 import FornecedorFormPage from './pages/fornecedores/FornecedorFormPage';
 import DoadoresPage from './pages/doadores/DoadoresPage';
 import DoadorFormPage from './pages/doadores/DoadorFormPage';
-// import AssinaturasPage from './pages/assinaturas/AssinaturasPage';
-// import AssinaturaFormPage from './pages/assinaturas/AssinaturaFormPage';
+import AssinaturasPage from './pages/assinaturas/AssinaturasPage';
+import AssinaturaFormPage from './pages/assinaturas/AssinaturaFormPage';
 import CategoriasPage from './pages/categorias/CategoriasPage';
 import CategoriaFormPage from './pages/categorias/CategoriaFormPage';
 import EntradasPage from './pages/entradas/EntradasPage';
@@ -40,9 +40,9 @@ const AppRoutes = () => (
                     <Route path='doadores' element={<DoadoresPage />} />
                     <Route path='doadores/novo' element={<DoadorFormPage />} />
                     <Route path='doadores/:id' element={<DoadorFormPage />} />                                  
-                    {/* <Route path='assinaturas' element={<AssinaturasPage />} />
+                    <Route path='assinaturas' element={<AssinaturasPage />} />
                     <Route path='assinaturas/novo' element={<AssinaturaFormPage />} />
-                    <Route path='assinaturas/:id' element={<AssinaturaFormPage />} /> */}
+                    <Route path='assinaturas/:id' element={<AssinaturaFormPage />} /> 
                     <Route path='categorias' element={<CategoriasPage />} />
                     <Route path='categorias/nova' element={<CategoriaFormPage />} />
                     <Route path='categorias/:id' element={<CategoriaFormPage />} />  
