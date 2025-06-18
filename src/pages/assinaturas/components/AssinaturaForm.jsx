@@ -11,6 +11,7 @@ function AssinaturaForm({ assinatura, onSave, fornecedores }) {
     setValue,
   } = useForm({
         defaultValues: {
+        id: null,
         descricao: '',
         fornecedorId: '',
         periodicidade: '',
@@ -25,16 +26,17 @@ function AssinaturaForm({ assinatura, onSave, fornecedores }) {
   useEffect(() => {
     if (assinatura) {
         reset({
+        id: assinatura.id || null,
         descricao: assinatura.descricao || '',
-        fornecedorId: assinatura.fornecedor_id || '',
+        fornecedorId: assinatura?.fornecedorId || '',
         periodicidade: assinatura.periodicidade || '',
-        numeroContrato: assinatura.numero_contrato || '',
+        numeroContrato: assinatura.numeroContrato || '',
         valor: assinatura.valor || '',
-        dataInicio: assinatura.data_inicio
-        ? new Date(assinatura.data_inicio).toISOString().slice(0, 10)
+        dataInicio: assinatura.dataInicio
+        ? new Date(assinatura.dataInicio).toISOString().slice(0, 10)
         : '',
-        dataFim: assinatura.data_fim
-        ? new Date(assinatura.data_fim).toISOString().slice(0, 10)
+        dataFim: assinatura.dataFim
+        ? new Date(assinatura.dataFim).toISOString().slice(0, 10)
         : '',
 
         ativo: assinatura.ativo || false,
@@ -45,6 +47,7 @@ function AssinaturaForm({ assinatura, onSave, fornecedores }) {
   const onSubmit = (data) => {
     // Ajusta o objeto para backend (camelCase -> snake_case)
     const dataToSave = {
+      id: data.id,
       ...data,
       fornecedor_id: data.fornecedorId,
       numero_contrato: data.numeroContrato,
@@ -85,7 +88,7 @@ function AssinaturaForm({ assinatura, onSave, fornecedores }) {
   <option value="">Selecione um fornecedor</option>
   {fornecedores.map((f) => (
     <option key={f.id} value={f.id}>
-      {f.id}
+      {f.razaoSocial}
     </option>
   ))}
 </Form.Select>

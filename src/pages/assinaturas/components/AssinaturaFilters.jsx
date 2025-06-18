@@ -9,13 +9,13 @@ function AssinaturaFilters({ filters, onFilterChange, onClearFilters }) {
                     <Container>
                         <Row className="justify-content-md-center align-items-center">
                             <Col md={4}>
-                                <FloatingLabel label="Título">
+                                <FloatingLabel label="Descricao">
                                     <Form.Control
                                         type="text"
                                         value={filters.titulo}
-                                        onChange={(e) => onFilterChange({ ...filters, titulo: e.target.value })}
+                                        onChange={(e) => onFilterChange({ ...filters, descricao: e.target.value })}
                                         className="form-control-filter"
-                                        placeholder="Buscar por título..."
+                                        placeholder="Buscar por descricao..."
                                     />
                                 </FloatingLabel>
                             </Col>

@@ -16,6 +16,7 @@
     "@hookform/resolvers": "^5.0.1",
     "bootstrap": "^5.3.5",
     "cpf-cnpj-validator": "^1.0.3",
+    "dayjs": "^1.11.13",
     "jwt-decode": "^4.0.0",
     "primereact": "^10.9.5",
     "prop-types": "^15.8.1",

@@ -3,6 +3,7 @@ import LoginPage from './pages/login/LoginPage';
 import Layout from './layouts/Layout';
 import HomePage from './pages/home/HomePage';
 import InfracoesPage from './pages/infracoes/InfracoesPage';
+import InfracoesFormPage from './pages/infracoes/InfracoesFormPage';
 import FornecedoresPage from './pages/fornecedores/FornecedoresPage';
 import FornecedorFormPage from './pages/fornecedores/FornecedorFormPage';
 import DoadoresPage from './pages/doadores/DoadoresPage';
@@ -44,7 +45,7 @@ const AppRoutes = () => (
                     <Route path='doadores/:id' element={<DoadorFormPage />} />                                  
                     <Route path='assinaturas' element={<AssinaturasPage />} />
                     <Route path='assinaturas/novo' element={<AssinaturaFormPage />} />
-                    <Route path='assinaturas/:id' element={<AssinaturaFormPage />} />
+                    <Route path='assinaturas/:id' element={<AssinaturaFormPage />} /> 
                     <Route path='categorias' element={<CategoriasPage />} />
                     <Route path='categorias/nova' element={<CategoriaFormPage />} />
                     <Route path='categorias/:id' element={<CategoriaFormPage />} />  
@@ -76,6 +77,7 @@ const AppRoutes = () => (
                     <Route path='novo' element={<UsuarioFormPage />} />
                     <Route path=':id' element={<UsuarioFormPage />} />
                     <Route path='infracoes' element={<InfracoesPage />} />
+                    <Route path='infracoes/novo' element={<InfracoesFormPage />} />
                 </Route> 
 
                 <Route path='/compras' element={<ComprasPage />} />
