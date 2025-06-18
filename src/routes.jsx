@@ -25,6 +25,8 @@ import MovimentacoesPage from './pages/movimentacoes/MovimentacoesPage';
 import UsuariosPage from './pages/usuarios/UsuariosPage';
 import UsuarioFormPage from './pages/usuarios/UsuarioFormPage';
 import ComprasPage from './pages/compras/ComprasPage';
+import EmprestimoFormPage from './pages/movimentacoes/EmprestimoFormPage';
+
 
 const AppRoutes = () => (
     <Router>
@@ -64,7 +66,10 @@ const AppRoutes = () => (
                     <Route path='exemplares' element={<ExemplaresPage />} />
                 </Route> 
 
-                <Route path='/movimentacoes' element={<MovimentacoesPage />} />
+                <Route path='/movimentacoes'>
+                    <Route path='' element={<MovimentacoesPage />} />
+                    <Route path='nova'element={<EmprestimoFormPage />} />
+                </Route> 
 
                 <Route path='/usuarios'>
                     <Route path='' element={<UsuariosPage />} />
@@ -75,7 +80,7 @@ const AppRoutes = () => (
 
                 <Route path='/compras' element={<ComprasPage />} />
             </Route>
-     
+
             <Route path="*" element={<LoginPage />} />
         </Routes>
     </Router>
