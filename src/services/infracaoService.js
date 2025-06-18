@@ -7,3 +7,18 @@ export const listar = async (filters = {}) => {
 
     return await apiFetch(url);
 };
+export const criar = async (dados) => {
+    return await apiFetch('/infracoes', {
+        method: 'POST',
+        body: JSON.stringify(dados)
+    });
+};
+export const atualizar = async (id, dados) => {
+    return await apiFetch(`/infracoes/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(dados)
+    });
+};
+export const buscarPorId = async (id) => {
+    return await apiFetch(`/infracoes/${id}`);
+};
