@@ -72,7 +72,7 @@ function InfracoesFormPage() {
             </Card>
 
             <div className="page-action d-flex justify-content-end gap-2">
-                <Button variant='secondary' type='button' onClick={() => navigate('/cadastros/infracaos')}>
+                <Button variant='secondary' type='button' onClick={() => navigate('/usuarios/infracoes')}>
                     <i className="bi bi-arrow-left"></i> Voltar
                 </Button>
                 <Button variant='success' type='submit' form="infracao-form">

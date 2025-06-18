@@ -23,15 +23,15 @@ function InfracaoForm({ infracao, onSave}) {
   } = useForm({
     resolver: yupResolver(infracaoSchema),
     defaultValues: {
-    id: null,
-    usuarioId: '',
-    tipoInfracao: '',
-    grauInfracao: '',
-    status: '',        
-    motivo: '',
-    dataInicio: '',
-    dataFim: ''
-      }
+   id: null,
+  usuarioId: '',
+  tipoInfracao: '',
+  grauInfracao: '',
+  status: '',        
+  motivo: '',
+  dataInicio: '',
+  dataFim: ''
+    }
   });
      
 
@@ -48,17 +48,16 @@ function InfracaoForm({ infracao, onSave}) {
     };
 
     carregarUsuarios();
-
-    reset({
-      id: infracao?.id || null,
-      usuarioId: infracao?.usuarioId || '',
-      tipoInfracao: infracao?.tipoInfracao || '',
-      grauInfracao: infracao?.grauInfracao || '',
-      status: infracao?.status || '',
-      motivo: infracao?.motivo || '',
-      dataInicio: infracao?.dataInicio?.split('T')[0] || '',
-      dataFim: infracao?.dataFim?.split('T')[0] || ''
-    });
+reset({
+  id: infracao?.id || null,
+  usuarioId: infracao?.usuarioId || '',
+  tipoInfracao: infracao?.tipoInfracao || '',
+  grauInfracao: infracao?.grauInfracao || '',
+  status: infracao?.status || '',
+  motivo: infracao?.motivo || '',
+  dataInicio: infracao?.dataInicio?.split('T')[0] || '',
+  dataFim: infracao?.dataFim?.split('T')[0] || ''
+});
 
 
   }, [infracao, reset]);
@@ -82,7 +81,7 @@ function InfracaoForm({ infracao, onSave}) {
               name="usuarioId" 
               {...register('usuarioId')} 
               onChange={handleChange}
-              isInvalid={!!errors.usuario_id}
+              isInvalid={!!errors.usuarioId}
               >
               <option value="">Selecione um Usuário</option>
               {usuarios.map((item) => (
@@ -91,7 +90,7 @@ function InfracaoForm({ infracao, onSave}) {
                 </option>
               ))}
             </Form.Select>
-            <Form.Control.Feedback type="invalid">{errors.usuario_id?.message}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{errors.usuarioId?.message}</Form.Control.Feedback>
           </FloatingLabel>
         </Col>
 
@@ -135,14 +134,14 @@ function InfracaoForm({ infracao, onSave}) {
              name="status"
              {...register('status')}
              onChange={handleChange}
-             isInvalid={!!errors.status_infracao}
+             isInvalid={!!errors.status}
              >
               <option value="">Selecione</option>
               {Object.entries(StatusEnum).map(([key, label]) => (
                 <option key={key} value={key}>{label}</option>
               ))}
             </Form.Select>
-            <Form.Control.Feedback type="invalid">{errors.status_infracao?.message}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{errors.status?.message}</Form.Control.Feedback>
           </FloatingLabel>
         </Col>
            <Col md={12}>
@@ -151,7 +150,9 @@ function InfracaoForm({ infracao, onSave}) {
               as="textarea"
               style={{ height: '100px' }}
               {...register('motivo')}
-              placeholder="Descrição da Infração"
+              onChange={handleChange}
+              isInvalid={!!errors.motivo}
+              placeholder="Motivo da Infração"
             />
           </FloatingLabel>
         </Col>
