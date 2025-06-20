@@ -11,14 +11,14 @@ import styles from './ToggleButtonGroupField.module.css';
  *   className?: string
  * }} props
  */
-function ToggleButtonGroupField({ name, control, options, className = '' }) {
+function ToggleButtonGroupField({ type='radio', name, control, options, className = '' }) {
     return (
         <Controller
             name={name}
             control={control}
             render={({ field }) => (
                 <ToggleButtonGroup
-                    type="checkbox"
+                    type={type}
                     name={field.name}
                     value={field.value || []}
                     onChange={field.onChange}

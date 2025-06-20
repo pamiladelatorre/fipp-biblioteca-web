@@ -14,6 +14,7 @@ import CategoriasPage from './pages/categorias/CategoriasPage';
 import CategoriaFormPage from './pages/categorias/CategoriaFormPage';
 import EntradasPage from './pages/entradas/EntradasPage';
 import ExemplaresPage from './pages/exemplares/ExamplaresPage';
+import ExemplarFormPage from './pages/exemplares/ExemplarFormPage';
 import GenerosPage from './pages/generos/GenerosPage';
 import GeneroFormPage from './pages/generos/GeneroFormPage';
 import AutoresPage from './pages/autores/AutoresPage';
@@ -65,6 +66,7 @@ const AppRoutes = () => (
                     <Route path=':id' element={<AcervoFormPage />} />
                     <Route path='entradas' element={<EntradasPage />} />
                     <Route path='exemplares' element={<ExemplaresPage />} />
+                    <Route path='exemplares/:id' element={<ExemplarFormPage />} />
                 </Route> 
 
                 <Route path='/movimentacoes'>
