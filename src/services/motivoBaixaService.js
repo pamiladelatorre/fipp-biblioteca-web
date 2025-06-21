@@ -16,6 +16,11 @@ export const listar = async (filters = {}) => {
     return await apiFetch(url);
 };
 
+// Busca um motivos baixa ativas
+export const buscarAtivos = async () => {
+    return await apiFetch('/motivos-baixa/ativos');
+};
+
 // Busca um motivo baixa pelo ID
 export const buscarPorId = async (id) => {
     return await apiFetch(`/motivos-baixa/${id}`);

@@ -8,6 +8,10 @@
     margin-bottom: .75rem;
 }
 
+.card-form .form-control-plaintext{
+    font-weight: 500;
+}
+
 .card-form .accordion {
     box-shadow: none !important;
 }

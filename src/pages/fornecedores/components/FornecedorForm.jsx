@@ -178,6 +178,7 @@ function FornecedorForm({ fornecedor, onSave }) {
                     <Accordion.Header><SectionTitle icon="bi-tags" title="Gêneros" /></Accordion.Header>
                     <Accordion.Body>
                         <ToggleButtonGroupField
+                            type="checkbox"
                             name="generos"
                             control={control}
                             options={generos.map((g) => ({ id: g.id, label: g.descricao }))}
