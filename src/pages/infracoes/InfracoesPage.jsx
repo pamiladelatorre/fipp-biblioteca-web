@@ -38,8 +38,10 @@ function InfracoesPage(){
     };
     
     // Ver mais detalhes de infrações
-    const handleView = async (infracaoId) => {
-        navigate(`/usuarios/infracoes/${infracaoId}`);
+    const handleEdit= async (infracaoId) => {
+  navigate(`${infracaoId}`);
+
+
     };
 
     // Carrega a lista de infrações, com ou sem filtro
@@ -72,7 +74,7 @@ function InfracoesPage(){
                 {loading && <LoadingBar />}
                 <InfracoesTable 
                     infracoes={infracoes} 
-                    onView={handleView} 
+                    onEdit={handleEdit}
                 />
             </div>
         </Stack>

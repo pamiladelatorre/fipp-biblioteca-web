@@ -26,7 +26,7 @@ function InfracoesFormPage() {
 
     const buscarInfracoes = () => {
         showLoadingBar();
-        infracaoService.buscar(id).then((response) => {
+        infracaoService.buscarPorId(id).then((response) => {
             setInfracoesFormData(response?.data);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar infração'));
@@ -53,7 +53,7 @@ function InfracoesFormPage() {
   
           try {
               const { data } = await apiPromise;
-              navigate(`/usuarios/infracoes`);	
+              navigate(`/usuarios/infracoes/${data.id}`);	
           } catch (_) {
               // erro já tratado pelo toast.promise
           }

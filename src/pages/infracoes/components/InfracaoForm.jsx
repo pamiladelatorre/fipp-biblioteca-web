@@ -164,7 +164,7 @@ reset({
             {...register('dataInicio')}
             onChange={handleChange}
             isInvalid={!!errors.dataInicio}
-             type="date" placeholder="Data Infração" />
+            type="date" placeholder="Data Infração" />
             <Form.Control.Feedback type="invalid">{errors.dataInicio?.message}</Form.Control.Feedback>
           </FloatingLabel>
 

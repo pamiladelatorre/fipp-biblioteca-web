@@ -78,6 +78,7 @@ const AppRoutes = () => (
                     <Route path=':id' element={<UsuarioFormPage />} />
                     <Route path='infracoes' element={<InfracoesPage />} />
                     <Route path='infracoes/novo' element={<InfracoesFormPage />} />
+                    <Route path='infracoes/:id' element={<InfracoesFormPage />} />
                 </Route> 
 
                 <Route path='/compras' element={<ComprasPage />} />

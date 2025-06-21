@@ -54,7 +54,7 @@ function DoadoresTable({ doadores, onEdit, onToggleAtivo }) {
             <Column field="telefone" header="Telefone" ></Column>
             <Column field='tipoPessoa' header="Tipo" body={tipoPessoTemplate}></Column>
             <Column field="ativo" header="Ativo" body={ativoTemplate}></Column>
-             <Column header="Ações" body={actionTemplate} style={{ width: '5rem' }}></Column>
+            <Column header="Ações" body={actionTemplate} style={{ width: '5rem' }}></Column>
         </DataTable>
      );
 }

@@ -7,7 +7,7 @@ import { InfracaoStatus } from '../../../enums/InfracaoStatus';
 
 import { formatDateToBR } from '../../../utils/formatDate';
 
-function InfracoesTable({ infracoes, onView }){
+function InfracoesTable({ infracoes, onEdit }) {
     // Exibe o tipo de infração
     const tipoInfracaoTemplate = (rowData) => TipoInfracao[rowData.tipoInfracao];
 
@@ -27,8 +27,8 @@ function InfracoesTable({ infracoes, onView }){
     const actionTemplate = (rowData) => {
         return (
             <div className='d-flex justify-content-center'>
-                <Button variant="secondary" title="Ver detalhes" onClick={() => onView(rowData.id)} size="sm" className='rounded-pill'>
-                    <i className='bi bi-eye'></i>
+                <Button variant="secondary" title="Editar" onClick={() => onEdit(rowData.id)} size="sm" className='rounded-pill'>
+                    <i className='bi bi-pencil'></i>
                 </Button>
             </div>
         );
