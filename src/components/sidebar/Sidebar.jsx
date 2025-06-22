@@ -51,6 +51,7 @@ export default function Sidebar() {
         {/* Movimentações */}
         <Nav className="flex-column">
           <Nav.Link as={Link} to="/movimentacoes" className='menu-item'><i className="bi bi-arrow-left-right me-2"></i>Movimentações</Nav.Link>
+          <Nav.Link as={Link} to="/movimentacoes/devolucoes" className='menu-item'><i className="bi bi-arrow-left-right me-2"></i>Devolução</Nav.Link>
         </Nav>
 
         {/* Usuários */}
