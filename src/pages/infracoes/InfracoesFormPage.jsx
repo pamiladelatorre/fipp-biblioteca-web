@@ -53,7 +53,7 @@ function InfracoesFormPage() {
   
           try {
               const { data } = await apiPromise;
-              navigate(`/usuarios/infracoes/${data.id}`);	
+              navigate(`/usuarios/infracoes`);	
           } catch (_) {
               // erro já tratado pelo toast.promise
           }

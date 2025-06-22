@@ -8,5 +8,5 @@ export const infracaoSchema = yup.object().shape({
   status: yup.string().required('Status é obrigatório'),
   motivo: yup.string().required('Motivo é obrigatório'),
   dataInicio: yup.date().required('Data de início é obrigatória'),
-  dataFim: yup.date().required('Data de fim é obrigatória'),
+ 
 });
