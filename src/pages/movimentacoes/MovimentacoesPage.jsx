@@ -59,7 +59,7 @@ function MovimentacoesPage(){
         <Stack>
             <div className="page-header-action">
                 <Button onClick={() => navigate('/movimentacoes/nova')}>
-                    <i className="bi bi-plus-lg"></i> Nova
+                    <i className="bi bi-plus-lg"></i> Novo empréstimo
                 </Button>
             </div>
             <div>

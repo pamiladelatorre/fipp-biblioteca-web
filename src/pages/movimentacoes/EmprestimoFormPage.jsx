@@ -34,42 +34,30 @@ function EmprestimoFormPage() {
     }
   }
 
-  const handleSave = async (formData) => {
-    try {
-      showLoadingBar();
 
-      const payload = {
-        usuarioId: Number(formData.usuarioId),
-        exemplarId: Number(formData.exemplarId),
-        dataEmprestimo: formData.dataEmprestimo,
-        etapa: 'emprestimo', // ou ajuste conforme sua lógica
-      };
-
-      const apiPromise = isEditMode
-        ? movimentacaoService.atualizar(id, payload)
-        : movimentacaoService.criar(payload);
-
-      await toast.promise(
-        apiPromise,
-        {
-          pending: isEditMode ? 'Atualizando empréstimo...' : 'Criando empréstimo...',
-          success: isEditMode ? 'Empréstimo atualizado com sucesso!' : 'Empréstimo criado com sucesso!',
-          error: {
-            render({ data }) {
-              return getErrorMessage(data, 'Falha ao salvar empréstimo');
-            },
-          },
-        }
-      );
-
-      const data = await apiPromise;
-      navigate('/movimentacoes');
-    } catch (error) {
-      // erro tratado no toast.promise
-    } finally {
-      hideLoadingBar();
-    }
+const handleSave = async (formData) => {
+  const payload = {
+    usuarioId: Number(formData.usuarioId),
+    exemplarId: Number(formData.exemplarId),
+    data_inicio: formData.dataEmprestimo,
+    etapa: 'emprestimo',
+    status: 'ativa', 
   };
+
+  console.log('Dados salvos:', payload);
+
+  try {
+    await movimentacaoService.criar(payload);
+    toast.success('Empréstimo salvo com sucesso!');
+    navigate('/emprestimos');
+  } catch (error) {
+    console.error('Erro ao salvar movimentação:', error);
+    toast.error(getErrorMessage(error, 'Erro ao salvar empréstimo'));
+  }
+};
+
+
+
 
   return (
     <Container>

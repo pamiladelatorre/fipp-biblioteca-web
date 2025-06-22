@@ -46,12 +46,21 @@ export default function Sidebar() {
                 <Nav.Link as={Link} to="/acervos/exemplares"><i className="bi bi-collection me-2"></i>Exemplares</Nav.Link>
             </Nav>
           </Accordion.Body>
+          </Accordion.Item>
+
+
+      {/* Movimentações */}
+
+        <Accordion.Item eventKey="3">
+        <Accordion.Header><i className="bi bi-arrow-left-right me-2"></i>Movimentações</Accordion.Header>
+        <Accordion.Body>
+        <Nav className="flex-column">
+          <Nav.Link as={Link} to="/movimentacoes" ><i className="bi bi-box-arrow-up-right me-2"></i>Empréstimos</Nav.Link>
+          <Nav.Link as={Link} to="/reservas" ><i className="bi bi-bookmark-check me-2"></i>Reservas</Nav.Link>
+        </Nav>
+        </Accordion.Body>
         </Accordion.Item>
 
-        {/* Movimentações */}
-        <Nav className="flex-column">
-          <Nav.Link as={Link} to="/movimentacoes" className='menu-item'><i className="bi bi-arrow-left-right me-2"></i>Movimentações</Nav.Link>
-        </Nav>
 
         {/* Usuários */}
         {canAccess(['administrador']) && (
