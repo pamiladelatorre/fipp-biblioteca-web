@@ -6,7 +6,7 @@ import { MovimentacaoStatus } from "../../../enums/MovimentacaoStatus";
 
 import { formatDateToBR } from '../../../utils/formatDate';
 
-function MovimentacoesTable({ movimentacoes, onView }){
+function MovimentacoesTable({ movimentacoes, onRenovar }){
     // Exibe a etapa
     const etapaTemplate = (rowData) => MovimentacaoEtapa[rowData.etapa];
 
@@ -23,15 +23,21 @@ function MovimentacoesTable({ movimentacoes, onView }){
     const dataFimTemplate = (rowData) => rowData.dataFim ? formatDateToBR(rowData.dataFim) : '-';
 
     // Exibe botões de editar
-    const actionTemplate = (rowData) => {
-        return (
-            <div className='d-flex justify-content-center'>
-                <Button variant="secondary" title="Ver detalhes" onClick={() => onView(rowData.id)} size="sm" className='rounded-pill'>
-                    <i className='bi bi-eye'></i>
-                </Button>
-            </div>
-        );
-    };
+ const actionTemplate = (rowData) => {
+    return (
+        <div className='d-flex justify-content-center gap-1'>
+            <Button
+                variant="warning"
+                title="Renovar"
+                onClick={() => onRenovar(rowData.id)}
+                size="sm"
+                className='rounded-pill'
+            >
+                <i className="bi bi-arrow-repeat"></i>
+            </Button>
+        </div>
+    );
+};
 
     return(
         <DataTable 

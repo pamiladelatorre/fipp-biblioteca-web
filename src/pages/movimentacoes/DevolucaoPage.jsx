@@ -6,16 +6,15 @@ import { toast } from 'react-toastify';
 import * as movimentacaoService from '../../services/movimentacaoService.js';
 import { useDebounce } from '../../hooks/useDebounce.js';
 import { useLoading } from '../../hooks/useLoading.js';
-import { getErrorMessage } from '../../utils/handleApiError.js';
-import MovimentacaoFilters from './components/MovimentacaoFilters.jsx';
-import MovimentacoesTable from './components/MovimentacoesTable.jsx';
+import { getErrorMessage } from '../../utils/handleApiError.js';   
+import DevolucaoTable from './components/DevolucaoTable.jsx';
 import LoadingBar from '../../components/loading-bar/LoadingBar.jsx';
+import DevolucaoFilters from './components/DevolucaoFilters.jsx';
 
-function MovimentacoesPage(){
+function DevolucaoPage(){
     const [movimentacoes, setMovimentacoes] = useState([]);
     const [filters, setFilters] = useState({
         acervo: '',
-        tombo: '',
         usuario: '',
         etapa: '',
         status: ''
@@ -35,7 +34,7 @@ function MovimentacoesPage(){
     };
 
     const handleClearFilters = () => {
-        setFilters({ acervo: '', tombo: '', usuario: '', etapa: '', status: '' });
+        setFilters({ acervo: '', usuario: '', etapa: '', status: '' });
     };
     
     // Ver mais detalhes do exemplares
@@ -54,28 +53,18 @@ function MovimentacoesPage(){
             stopLoading();
         });
     };
-       const handleRenovacao = async (id) => {
-    try {
-        const { data } = await movimentacaoService.renovar(id);
-        toast.success('Empréstimo renovado até: ' + new Date(data.novaDataPrevista).toLocaleDateString('pt-BR'));
-        buscarMovimentacoes(filters); // recarrega a lista atualizada com os filtros ativos
-    } catch (error) {
-        toast.error(getErrorMessage(error, 'Erro ao renovar empréstimo'));
-    }
-};
+ 
 
-
-    
 
     return(
         <Stack>
             <div className="page-header-action">
-                <Button onClick={() => navigate('/movimentacoes/nova')}>
-                    <i className="bi bi-plus-lg"></i> Novo empréstimo
+                <Button onClick={() => navigate('/movimentacoes/devolucoes/nova')}>
+                    <i className="bi bi-plus-lg"></i> Nova
                 </Button>
             </div>
             <div>
-                <MovimentacaoFilters 
+                <DevolucaoFilters
                     filters={filters} 
                     onFilterChange={handleFilterChange} 
                     onClearFilters={handleClearFilters} 
@@ -83,14 +72,13 @@ function MovimentacoesPage(){
             </div>
             <div>
                 {loading && <LoadingBar />}
-                <MovimentacoesTable 
+                <DevolucaoTable
                     movimentacoes={movimentacoes} 
                     onView={handleView} 
-                    onRenovar={handleRenovacao}
                 />
             </div>
         </Stack>
     );
 };
 
-export default MovimentacoesPage;
+export default DevolucaoPage;

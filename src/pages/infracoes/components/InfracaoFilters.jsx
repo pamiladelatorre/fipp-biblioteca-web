@@ -15,8 +15,8 @@ function InfracaoFilters({ filters, onFilterChange, onClearFilters }){
                                 <FloatingLabel label="Usuário">
                                     <Form.Control 
                                         type='text' 
-                                        value={filters.nome}
-                                        onChange={(e) => onFilterChange({ ...filters, nome: e.target.value })}
+                                        value={filters.usuario}
+                                        onChange={(e) => onFilterChange({ ...filters, usuario: e.target.value })}
                                         className='form-control-filter' 
                                     />                            
                                 </FloatingLabel>

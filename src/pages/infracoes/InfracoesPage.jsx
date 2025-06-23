@@ -15,8 +15,8 @@ function InfracoesPage(){
     const [infracoes, setInfracoes] = useState([]);
     const [filters, setFilters] = useState({
         usuario: '',
-        tipoInfracao: '',
-        grauInfracao: '',
+        tipo: '',
+        grau: '',
         status: ''
     });
     const debouncedFilter = useDebounce(filters, 500);
@@ -34,12 +34,14 @@ function InfracoesPage(){
     };
 
     const handleClearFilters = () => {
-        setFilters({ usuario: '', tipoInfracao: '', grauInfracao: '', status: '' });
+        setFilters({ usuario: '', tipo: '', grau: '', status: '' });
     };
     
     // Ver mais detalhes de infrações
-    const handleView = async (infracaoId) => {
-        navigate(`/usuarios/infracoes/${infracaoId}`);
+    const handleEdit= async (infracaoId) => {
+  navigate(`${infracaoId}`);
+
+
     };
 
     // Carrega a lista de infrações, com ou sem filtro
@@ -48,7 +50,7 @@ function InfracoesPage(){
         infracaoService.listar(filters).then((response) => {
             setInfracoes(response?.data || []);
         }).catch((error) => {
-            toast.error(getErrorMessage(error, 'Erro ao buscar usuários'));
+            toast.error(getErrorMessage(error, 'Erro ao buscar infrações'));
         }).finally(() => {
             stopLoading();
         });
@@ -72,7 +74,7 @@ function InfracoesPage(){
                 {loading && <LoadingBar />}
                 <InfracoesTable 
                     infracoes={infracoes} 
-                    onView={handleView} 
+                    onEdit={handleEdit}
                 />
             </div>
         </Stack>

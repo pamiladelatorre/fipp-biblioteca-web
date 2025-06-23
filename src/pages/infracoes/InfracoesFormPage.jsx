@@ -26,7 +26,7 @@ function InfracoesFormPage() {
 
     const buscarInfracoes = () => {
         showLoadingBar();
-        infracaoService.buscar(id).then((response) => {
+        infracaoService.buscarPorId(id).then((response) => {
             setInfracoesFormData(response?.data);
         }).catch((error) => {
             toast.error(getErrorMessage(error, 'Erro ao buscar infração'));
