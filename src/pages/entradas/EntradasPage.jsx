@@ -58,7 +58,7 @@ function EntradasPage(){
     return(
         <Stack>
             <div className="page-header-action">
-                <Button onClick={() => navigate('/acervos/entradas/novo')}>
+                <Button onClick={() => navigate('/acervos/entradas/nova')}>
                     <i className="bi bi-plus-lg"></i> Novo
                 </Button>
             </div>

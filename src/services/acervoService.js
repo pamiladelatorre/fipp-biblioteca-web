@@ -16,6 +16,11 @@ export const listar = async (filters = {}) => {
     return await apiFetch(url);
 };
 
+// Busca acervos ativos
+export const buscarAtivos = async () => {
+    return await apiFetch('/acervos/ativos');
+};
+
 // Busca uma acervo pelo ID
 export const buscarPorId = async (id) => {
     return await apiFetch(`/acervos/${id}`);

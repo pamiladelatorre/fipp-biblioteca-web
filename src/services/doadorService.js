@@ -16,11 +16,11 @@ export const listar = async (filters = {}) => {
     return await apiFetch(url);
 };
 
-/* Busca um doador pelo ID
-//export const buscarAtivos = async () => {
+// Busca um doadores ativos
+export const buscarAtivos = async () => {
     return await apiFetch('/doadores/ativos');
 };
-*/
+
 // Busca um doador pelo ID
 export const buscarPorId = async (id) => {
     return await apiFetch(`/doadores/${id}`);

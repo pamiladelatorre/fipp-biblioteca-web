@@ -13,6 +13,7 @@ import AssinaturaFormPage from './pages/assinaturas/AssinaturaFormPage';
 import CategoriasPage from './pages/categorias/CategoriasPage';
 import CategoriaFormPage from './pages/categorias/CategoriaFormPage';
 import EntradasPage from './pages/entradas/EntradasPage';
+import EntradaFormPage from './pages/entradas/EntradaFormPage';
 import ExemplaresPage from './pages/exemplares/ExamplaresPage';
 import ExemplarFormPage from './pages/exemplares/ExemplarFormPage';
 import GenerosPage from './pages/generos/GenerosPage';
@@ -65,6 +66,8 @@ const AppRoutes = () => (
                     <Route path='novo' element={<AcervoFormPage />} />
                     <Route path=':id' element={<AcervoFormPage />} />
                     <Route path='entradas' element={<EntradasPage />} />
+                    <Route path='entradas/nova' element={<EntradaFormPage />} />
+                    <Route path='entradas/:id' element={<EntradaFormPage />} />
                     <Route path='exemplares' element={<ExemplaresPage />} />
                     <Route path='exemplares/:id' element={<ExemplarFormPage />} />
                 </Route> 
