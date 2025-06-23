@@ -54,6 +54,18 @@ function MovimentacoesPage(){
             stopLoading();
         });
     };
+       const handleRenovacao = async (id) => {
+    try {
+        const { data } = await movimentacaoService.renovar(id);
+        toast.success('Empréstimo renovado até: ' + new Date(data.novaDataPrevista).toLocaleDateString('pt-BR'));
+        buscarMovimentacoes(filters); // recarrega a lista atualizada com os filtros ativos
+    } catch (error) {
+        toast.error(getErrorMessage(error, 'Erro ao renovar empréstimo'));
+    }
+};
+
+
+    
 
     return(
         <Stack>
@@ -74,6 +86,7 @@ function MovimentacoesPage(){
                 <MovimentacoesTable 
                     movimentacoes={movimentacoes} 
                     onView={handleView} 
+                    onRenovar={handleRenovacao}
                 />
             </div>
         </Stack>

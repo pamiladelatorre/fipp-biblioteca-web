@@ -41,13 +41,13 @@ function DevolucaoFormPage() {
       const payload = {
         usuarioId: Number(formData.usuarioId),
         exemplarId: Number(formData.exemplarId),
-        dataEmprestimo: formData.dataEmprestimo,
-        etapa: 'emprestimo', // ou ajuste conforme sua lógica
+        dataFim: formData.dataFim,
+        etapa: 'devolucao', // ou ajuste conforme sua lógica
       };
 
-      const apiPromise = isEditMode
-        ? movimentacaoService.atualizar(id, payload)
-        : movimentacaoService.criar(payload);
+const apiPromise = isEditMode
+  ? movimentacaoService.atualizar(id, { ...payload, etapa: 'devolucao' })  // editar devolução OK
+  : movimentacaoService.registrarDevolucao(payload);                       // novo: chama o endpoint de devolução
 
       await toast.promise(
         apiPromise,

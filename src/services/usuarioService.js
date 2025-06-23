@@ -36,3 +36,7 @@ export const atualizarAtivo = async (id, dados) => {
         body: JSON.stringify(dados)
     });
 };
+// Lista exemplares emprestados por um usuário
+export const listarExemplaresEmprestados = async (usuarioId) => {
+    return await apiFetch(`/usuarios/${usuarioId}/exemplares-emprestados`);
+};

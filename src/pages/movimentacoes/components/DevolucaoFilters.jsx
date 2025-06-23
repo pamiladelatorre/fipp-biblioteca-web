@@ -1,5 +1,4 @@
 import { Accordion, Container, Row, Col, FloatingLabel, Form, Button } from "react-bootstrap";
-import { MovimentacaoEtapa } from "../../../enums/MovimentacaoEtapa";
 import { MovimentacaoStatus } from "../../../enums/MovimentacaoStatus";
 
 function DevolucaoFilters({ filters, onFilterChange, onClearFilters }){
@@ -10,7 +9,7 @@ function DevolucaoFilters({ filters, onFilterChange, onClearFilters }){
                 <Accordion.Body>
                     <Container>
                         <Row className="justify-content-md-center align-items-center">
-                            <Col md={4} className="mb-2">
+                            <Col md={3} className="mb-2">
                                 <FloatingLabel label="Acervo">
                                     <Form.Control 
                                         type='text' 
@@ -30,7 +29,7 @@ function DevolucaoFilters({ filters, onFilterChange, onClearFilters }){
                                     />                            
                                 </FloatingLabel>
                             </Col>  
-                            <Col md={4} className="mb-2">
+                            <Col md={3} className="mb-2">
                                 <FloatingLabel label="Usuário">
                                     <Form.Control 
                                         type='text' 
@@ -40,20 +39,6 @@ function DevolucaoFilters({ filters, onFilterChange, onClearFilters }){
                                     />                            
                                 </FloatingLabel>
                             </Col>                          
-                            <Col md={2} className="mb-2">
-                                <FloatingLabel label="Etapa">
-                                    <Form.Select 
-                                        aria-label="Etapa" 
-                                        value={filters.etapa} 
-                                        onChange={(e) => onFilterChange({ ...filters, etapa: e.target.value })}
-                                    >
-                                        <option></option>
-                                        {Object.entries(MovimentacaoEtapa).map(([key, label]) => (
-                                            <option key={key} value={key}>{label}</option>
-                                        ))}
-                                    </Form.Select>                              
-                                </FloatingLabel>
-                            </Col>
                             <Col md={2}>
                                 <FloatingLabel label="Status">
                                     <Form.Select 

@@ -27,7 +27,7 @@ export const criar = async (dados) => {
 
 // Atualiza movimentação existente por ID
 export const atualizar = async (id, dados) => {
-  return await apiFetch(`${BASE_URL}/${id}`, {
+  return await apiFetch(`${BASE_URL}/devolucao`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -42,3 +42,20 @@ export const remover = async (id) => {
     method: 'DELETE',
   });
 };
+// Registra devolução - chama PUT ou POST no endpoint correto
+export const registrarDevolucao = async (dados) => {
+  return await apiFetch(`${BASE_URL}/devolucao`, {
+    method: 'PUT', // ou 'POST' conforme o backend
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(dados),
+  });
+};
+// Renova movimentação (empréstimo) por ID
+export const renovar = async (id) => {
+  return await apiFetch(`${BASE_URL}/${id}/renovar`, {
+    method: 'PUT',
+  });
+};
+

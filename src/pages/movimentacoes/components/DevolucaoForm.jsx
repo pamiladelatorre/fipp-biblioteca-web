@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
+
 
 import * as usuarioService from '../../../services/usuarioService.js';
 import * as exemplarService from '../../../services/exemplarService.js';
@@ -10,7 +12,7 @@ function DevolucaoForm({ movimentacao = {}, onSave }) {
     const [formData, setFormData] = useState({
         usuarioId: '',
         exemplarId: '',
-        dataEmprestimo: '',
+        DataFim: '',
         ...movimentacao,
     });
 
@@ -47,54 +49,77 @@ function DevolucaoForm({ movimentacao = {}, onSave }) {
     };
 
 const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Dados para salvar:', formData);
-    onSave(formData);
+  e.preventDefault();
+  onSave({
+    exemplarId: formData.exemplarId,
+    usuarioId: formData.usuarioId
+  });
+};
+
+const handleUsuarioChange = async (selected) => {
+    const usuarioId = selected?.value || '';
+    setFormData(prev => ({ ...prev, usuarioId, exemplarId: '' }));
+
+    if (usuarioId) {
+        try {
+            const { data } = await usuarioService.listarExemplaresEmprestados(usuarioId);
+            setExemplares(data);
+        } catch (error) {
+            console.error('Erro ao carregar exemplares emprestados:', error);
+            setExemplares([]);
+        }
+    } else {
+        setExemplares([]);
+    }
 };
 
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3">
-                <Form.Label>Usuário</Form.Label>
-                <Form.Select
-                    name="usuarioId"
-                    value={formData.usuarioId}
-                    onChange={handleChange}
-                    required
-                >
-                    <option value="">Selecione o usuário</option>
-                    {usuarios.map((u) => (
-                        <option key={u.id} value={u.id}>
-                            {u.nome}
-                        </option>
-                    ))}
-                </Form.Select>
-            </Form.Group>
+     <Form.Group className="mb-3">
+    <Form.Label>Usuário</Form.Label>
+    <Select
+        name="usuarioId"
+        options={usuarios.map(u => ({ value: u.id, label: u.nome }))}
+        value={
+            formData.usuarioId
+                ? { value: formData.usuarioId, label: usuarios.find(u => u.id === formData.usuarioId)?.nome }
+                : null
+        }
+        onChange={handleUsuarioChange}
+        isClearable
+        placeholder="Selecione ou digite o nome do usuário"
+    />
+</Form.Group>
 
-            <Form.Group className="mb-3">
-                <Form.Label>Exemplar</Form.Label>
-                <Form.Select
-                    name="exemplarId"
-                    value={formData.exemplarId}
-                    onChange={handleChange}
-                    required
-                >
-                    <option value="">Selecione o exemplar</option>
-                    {exemplares.map((e) => (
-                        <option key={e.id} value={e.id}>
-                            {e.acervo?.titulo || 'Sem título'} ({e.codigo || 'Sem código'})
-                        </option>
-                    ))}
-                </Form.Select>
-            </Form.Group>
+
+    <Form.Group className="mb-3">
+        <Form.Label>Exemplar</Form.Label>
+        <Select
+            name="exemplarId"
+            options={exemplares.map(e => ({
+                value: e.id,
+                label: `${e.acervo?.titulo || 'Sem título'} (${e.codigo || 'Sem código'})`
+            }))}
+            value={exemplares.find(e => e.id === formData.exemplarId) && {
+                value: formData.exemplarId,
+                label: exemplares.find(e => e.id === formData.exemplarId)?.acervo?.titulo || 'Sem título'
+            }}
+            onChange={(selected) =>
+                setFormData(prev => ({ ...prev, exemplarId: selected?.value || '' }))
+            }
+            isClearable
+            placeholder="Selecione ou digite o exemplar"
+        />
+    </Form.Group>
+
 
             <Form.Group className="mb-3">
                 <Form.Label>Data da devolução</Form.Label>
                 <Form.Control
                     type="date"
-                    name="dataEmprestimo"
-                    value={formData.dataEmprestimo}
+                    name="dataFim"
+                    value={formData.dataFim}
                     onChange={handleChange}
                     required
                 />
